@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — УмБаза</title>
+    <link rel="icon" type="image/png" href="assets/brand/umbaza-mark-v2.png">
+    <script src="js/tailwindcss-play-3.4.17.js"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { accent: { cyan: '#0099ff', blue: '#2563eb', violet: '#7c3aed' } } } }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=20260815b">
+    <script src="js/yandex-metrika.js"></script>
+    <script src="js/unified-nav.js?v=20260815a" defer></script>
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3782581", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782581;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</head>
+<body class="font-sans antialiased min-h-screen">
+    <noscript><div><img src="https://mc.yandex.ru/watch/110566914" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <nav class="relative z-10 border-b border-theme glass">
+        <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="brand-logo-compact">
+                    <img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--compact">
+                </div>
+                <span class="font-bold text-theme-primary">УмБаза</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="leaderboard.html" class="nav-link text-sm">Доска почёта</a>
+                <a href="faq.html" class="nav-link text-sm">FAQ</a>
+                <a href="news.html" class="nav-link text-sm">Новости</a>
+                <button onclick="logout()" class="text-sm text-theme-muted hover:text-red-500">Выйти</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-6 py-10">
+        <div class="flex items-start justify-between flex-wrap gap-4 mb-8">
+            <div>
+                <h1 class="text-2xl font-bold text-theme-primary mb-1">Личный кабинет</h1>
+                <p class="text-theme-muted text-sm" id="user-greeting">Загрузка...</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="user-role-badge" class="level-selected-label"></span>
+                <button type="button" onclick="logout()" class="text-sm text-theme-muted hover:text-red-500">Выйти</button>
+            </div>
+        </div>
+
+        <div id="role-hint" class="glass rounded-xl p-4 mb-8 text-sm text-theme-secondary hidden"></div>
+
+        <div class="grid md:grid-cols-4 gap-4 mb-8">
+            <div class="glass rounded-xl p-5 text-center">
+                <div class="text-2xl font-bold text-accent-blue" id="stat-lessons">—</div>
+                <div class="text-xs text-theme-muted mt-1">Уроков пройдено</div>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <div class="text-2xl font-bold text-accent-violet" id="stat-quizzes">—</div>
+                <div class="text-xs text-theme-muted mt-1">Квизов завершено</div>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <div class="text-2xl font-bold text-green-600" id="stat-score">—</div>
+                <div class="text-xs text-theme-muted mt-1">Средний балл</div>
+            </div>
+            <div class="glass rounded-xl p-5 text-center">
+                <div class="text-2xl font-bold text-amber-600" id="stat-points">—</div>
+                <div class="text-xs text-theme-muted mt-1">Баллы рейтинга</div>
+            </div>
+        </div>
+
+        <div class="glass-strong rounded-2xl p-6 mb-8">
+            <h2 class="font-semibold text-theme-primary mb-1">Ник на Доске почёта</h2>
+            <p class="text-sm text-theme-muted mb-4">Отображается в топ-100 вместо ФИО</p>
+            <form id="nickname-form" class="flex flex-wrap gap-3 items-end">
+                <div class="flex-1 min-w-[12rem]">
+                    <label class="block text-sm font-medium text-theme-secondary mb-1.5">Ник</label>
+                    <input type="text" id="profile-nickname" maxlength="24" class="input-glass w-full px-4 py-3 text-sm" placeholder="umbaza_star" autocomplete="username">
+                </div>
+                <button type="submit" class="btn-primary px-6 py-2.5 text-sm">Сохранить</button>
+                <a href="leaderboard.html" class="text-sm text-accent-blue hover:underline py-2.5">Смотреть рейтинг →</a>
+            </form>
+            <p id="nickname-save-status" class="text-sm text-theme-muted mt-2 hidden"></p>
+        </div>
+
+        <div id="subject-breakdown" class="glass rounded-xl p-5 mb-8 hidden">
+            <h2 class="font-semibold text-theme-primary mb-3 text-sm">По предметам</h2>
+            <div id="subject-list" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <div id="parent-section" class="glass-strong rounded-2xl p-6 mb-8 hidden">
+            <h2 class="font-semibold text-theme-primary mb-1">Контакты родителя</h2>
+            <p class="text-sm text-theme-muted mb-4">Укажите данные родителя или законного представителя</p>
+            <form id="parent-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-theme-secondary mb-1.5">ФИО родителя</label>
+                    <input type="text" id="parent-name" class="input-glass w-full px-4 py-3 text-sm" placeholder="Иванова Мария Петровна">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-theme-secondary mb-1.5">Телефон родителя</label>
+                    <input type="tel" id="parent-phone" class="input-glass w-full px-4 py-3 text-sm" placeholder="+7 (999) 123-45-67" autocomplete="tel">
+                </div>
+                <button type="submit" class="btn-primary px-6 py-2.5 text-sm">Сохранить</button>
+                <p id="parent-save-status" class="text-sm text-theme-muted hidden"></p>
+            </form>
+        </div>
+
+        <div class="glass-strong rounded-2xl p-6 mb-8">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <h2 class="font-semibold text-theme-primary">Премиум доступ</h2>
+                    <p class="text-sm text-theme-muted mt-1" id="subscription-status">Бесплатный тариф</p>
+                </div>
+                <a href="plans.html" class="btn-primary px-6 py-2.5 text-sm">Выбрать тариф</a>
+            </div>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+            <h2 class="font-semibold text-theme-primary mb-4">История уроков</h2>
+            <div id="lesson-history" class="space-y-2 text-sm text-theme-muted">Загрузка...</div>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="index.html" class="btn-primary inline-block px-6 py-2.5 text-sm">Создать новый урок</a>
+        </div>
+    </main>
+
+    <script src="js/site-config.js"></script>
+    <script src="js/api.js?v=20260814a"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        const ROLE_HINTS = {
+            student: 'Здесь вы видите свои уроки, результаты квизов и прогресс по предметам.',
+            parent: 'Отслеживайте материалы, которые проходят ваши дети, и повторяйте темы дома.',
+            teacher: 'Используйте сгенерированные уроки как основу — дорабатывайте под свой класс.',
+        };
+
+        function formatLessonMeta(l) {
+            const level = EDUCATION_LEVEL_LABELS[l.education_level] || '';
+            const grade = l.grade_label || `${l.grade} кл.`;
+            return `${level} · ${l.subject} · ${grade}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!requireAuth()) return;
+
+            let user = getUser();
+            if (!user) {
+                try {
+                    user = await api.getMe();
+                    setUser(user);
+                } catch (e) { /* ignore */ }
+            }
+
+            const name = user?.full_name || user?.email || '';
+            const role = user?.role || 'student';
+            document.getElementById('user-greeting').textContent = name;
+            document.getElementById('user-role-badge').textContent = ROLE_LABELS[role] || role;
+            document.getElementById('profile-nickname').value = user?.nickname || '';
+
+            const hint = document.getElementById('role-hint');
+            hint.textContent = ROLE_HINTS[role] || '';
+            hint.classList.remove('hidden');
+
+            if (role === 'student') {
+                document.getElementById('parent-section').classList.remove('hidden');
+                document.getElementById('parent-name').value = user?.parent_name || '';
+                document.getElementById('parent-phone').value = user?.parent_phone || '';
+            }
+
+            document.getElementById('nickname-form')?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const status = document.getElementById('nickname-save-status');
+                try {
+                    const updated = await api.updateProfile({
+                        nickname: document.getElementById('profile-nickname').value.trim() || null,
+                    });
+                    setUser(updated);
+                    status.textContent = 'Ник сохранён';
+                    status.classList.remove('hidden', 'text-red-500');
+                    status.classList.add('text-green-600');
+                } catch (err) {
+                    status.textContent = err.message || 'Ошибка сохранения';
+                    status.classList.remove('hidden');
+                    status.classList.add('text-red-500');
+                }
+            });
+
+            document.getElementById('parent-form')?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const status = document.getElementById('parent-save-status');
+                try {
+                    const updated = await api.updateProfile({
+                        parent_name: document.getElementById('parent-name').value.trim() || null,
+                        parent_phone: document.getElementById('parent-phone').value.trim() || null,
+                    });
+                    setUser(updated);
+                    status.textContent = 'Сохранено';
+                    status.classList.remove('hidden', 'text-red-500');
+                    status.classList.add('text-green-600');
+                } catch (err) {
+                    status.textContent = err.message || 'Ошибка сохранения';
+                    status.classList.remove('hidden');
+                    status.classList.add('text-red-500');
+                }
+            });
+
+            try {
+                const stats = await api.getDashboardStats();
+                if (stats) {
+                    document.getElementById('stat-lessons').textContent = stats.total_lessons ?? 0;
+                    document.getElementById('stat-quizzes').textContent = stats.completed ?? 0;
+                    document.getElementById('stat-score').textContent =
+                        stats.average_score ? `${stats.average_score}%` : '—';
+                    document.getElementById('stat-points').textContent = stats.points ?? 0;
+
+                    if (stats.subscription?.status === 'premium') {
+                        const labels = { student: 'Ученик', family: 'Семейный', teacher: 'Преподаватель' };
+                        const plan = labels[stats.subscription.plan] || 'Премиум';
+                        const expires = stats.subscription.expires_at
+                            ? ` до ${new Date(stats.subscription.expires_at).toLocaleDateString('ru-RU')}`
+                            : '';
+                        document.getElementById('subscription-status').textContent = `${plan} активен${expires}`;
+                    }
+
+                    const breakdown = stats.subject_breakdown || {};
+                    const keys = Object.keys(breakdown);
+                    if (keys.length) {
+                        document.getElementById('subject-breakdown').classList.remove('hidden');
+                        const subjectList = document.getElementById('subject-list');
+                        const subjects = document.createDocumentFragment();
+                        keys.forEach((subject) => {
+                            const item = document.createElement('span');
+                            item.className = 'px-3 py-1 rounded-full text-xs bg-blue-50 text-accent-blue border border-blue-100';
+                            item.textContent = `${subject}: ${breakdown[subject]}`;
+                            subjects.appendChild(item);
+                        });
+                        subjectList.replaceChildren(subjects);
+                    }
+                }
+            } catch (e) {
+                document.getElementById('stat-lessons').textContent = '0';
+                document.getElementById('stat-quizzes').textContent = '0';
+                document.getElementById('stat-score').textContent = '—';
+            }
+
+            try {
+                const history = await api.getLessonHistory();
+                const el = document.getElementById('lesson-history');
+                if (!history || history.length === 0) {
+                    const empty = document.createElement('p');
+                    empty.appendChild(document.createTextNode('Уроков пока нет. '));
+                    const createLink = document.createElement('a');
+                    createLink.href = '/';
+                    createLink.className = 'text-accent-blue';
+                    createLink.textContent = 'Создайте первый';
+                    empty.appendChild(createLink);
+                    el.replaceChildren(empty);
+                    return;
+                }
+                const lessons = document.createDocumentFragment();
+                history.forEach((lesson) => {
+                    const link = document.createElement('a');
+                    link.href = `lesson.html?id=${encodeURIComponent(lesson.id)}`;
+                    link.className = 'block p-3 rounded-lg hover:bg-blue-50/50 transition-colors border border-transparent hover:border-blue-100';
+                    const topic = document.createElement('div');
+                    topic.className = 'font-medium text-theme-primary';
+                    topic.textContent = lesson.topic;
+                    const meta = document.createElement('div');
+                    meta.className = 'text-theme-muted text-xs mt-0.5';
+                    meta.textContent = formatLessonMeta(lesson);
+                    link.append(topic, meta);
+                    if (lesson.score != null) {
+                        const score = document.createElement('div');
+                        score.className = 'text-xs text-green-600 mt-1';
+                        score.textContent = `Квиз: ${lesson.score}%`;
+                        link.appendChild(score);
+                    }
+                    lessons.appendChild(link);
+                });
+                el.replaceChildren(lessons);
+            } catch (e) {
+                const message = document.createElement('p');
+                message.textContent = 'История появится после создания уроков';
+                document.getElementById('lesson-history').replaceChildren(message);
+            }
+        });
+    </script>
+</body>
+</html>

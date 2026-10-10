@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>УмБаза — Образовательная AI-платформа</title>
+    <meta name="description" content="Бесплатный AI-Репетитор школьных с иллюстрациями и квизом">
+    <link rel="icon" type="image/png" href="assets/brand/umbaza-mark-v2.png">
+
+    <script src="js/tailwindcss-play-3.4.17.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: { cyan: '#0099ff', blue: '#2563eb', violet: '#7c3aed' },
+                    },
+                    fontFamily: { sans: ['Manrope', 'Inter', 'system-ui', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>gsap.registerPlugin(ScrollTrigger);</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css?v=20261009converge1">
+    <script src="js/yandex-metrika.js"></script>
+    <script src="js/unified-nav.js?v=20260815a" defer></script>
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3782581", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782581;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</head>
+<body class="font-sans antialiased overflow-x-hidden hub-mode">
+    <noscript><div><img src="https://mc.yandex.ru/watch/110566914" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <!-- Background: neon spots + glass orbs on edges -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="sphere sphere-cyan w-[28rem] h-[28rem] -top-32 -left-32" id="sphere-1"></div>
+        <div class="sphere sphere-violet w-80 h-80 top-1/4 -right-40" id="sphere-2"></div>
+        <div class="sphere sphere-blue w-72 h-72 bottom-10 left-1/3" id="sphere-3"></div>
+
+        <div class="glass-orb glass-orb-xl -top-10 -left-16" id="orb-1"></div>
+        <div class="glass-orb glass-orb-lg top-1/4 -right-8" id="orb-2"></div>
+        <div class="glass-orb glass-orb-md bottom-32 -left-6" id="orb-3"></div>
+        <div class="glass-orb glass-orb-sm bottom-16 right-8" id="orb-4"></div>
+        <div class="glass-orb glass-orb-md top-2/3 -right-12 hidden md:block" id="orb-5"></div>
+
+        <div class="glass-prism glass-prism-lg top-16 left-8 rotate-12" id="prism-1"></div>
+        <div class="glass-prism glass-prism-md top-1/2 right-4 -rotate-6" id="prism-2"></div>
+        <div class="glass-prism glass-prism-sm bottom-40 left-12 rotate-45" id="prism-3"></div>
+        <div class="glass-prism glass-prism-md bottom-8 right-16 -rotate-12 hidden md:block" id="prism-4"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="site-nav relative z-10 border-b border-theme">
+        <div class="site-nav__inner max-w-6xl mx-auto px-4 sm:px-6">
+            <a href="index.html" class="site-nav__brand">
+                <div class="site-nav__logo">
+                    <img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--nav">
+                </div>
+                <span class="site-nav__title">УмБаза</span>
+            </a>
+            <div class="site-nav__links">
+                <a href="#marketplace-preview" class="nav-link">Найти репетитора</a>
+                <a href="#news-preview" class="nav-link">Новости и аналитика</a>
+                <a href="#reviews" class="nav-link">Отзывы</a>
+                <a href="franchise.html" class="nav-link">Франшиза</a>
+                <a href="plans.html" class="nav-link">Тарифы</a>
+            </div>
+            <div class="site-nav__socials">
+                <a href="https://vk.com/UmBazaRF" data-link-vk target="_blank" rel="noopener noreferrer" class="social-icon social-icon--app" title="ВКонтакте" aria-label="ВКонтакте">
+                    <img src="assets/logos/vk-square.png" alt="">
+                </a>
+                <a href="https://max.ru/channel_UmBaza" data-link-max target="_blank" rel="noopener noreferrer" class="social-icon social-icon--app" title="MAX" aria-label="MAX">
+                    <img src="assets/logos/max-square.png" alt="">
+                </a>
+                <a href="https://dzen.ru/umbaza102" data-link-dzen target="_blank" rel="noopener noreferrer" class="social-icon social-icon--app" title="Дзен" aria-label="Дзен">
+                    <img src="assets/logos/dzen-square.png" alt="">
+                </a>
+            </div>
+            <a href="account.html" id="nav-account" class="btn-account">Войти</a>
+        </div>
+    </nav>
+
+    <main class="relative z-10 max-w-6xl mx-auto px-6 py-4 md:py-8">
+
+        <!-- ECOSYSTEM HUB — first decision point -->
+        <section id="ecosystem-hub" class="ecosystem-hub" aria-labelledby="hub-title">
+            <div class="hub-topline">
+                <span class="hub-kicker"><i></i> УМБАЗА / ЭКОСИСТЕМА</span>
+                <span class="hub-index">ВЫБЕРИТЕ СВОЙ МАРШРУТ <b>01—03</b></span>
+            </div>
+
+            <div class="hub-intro">
+                <div class="hub-intro__photo" aria-label="Занятие в учебном кабинете">
+                    <img src="assets/photography/classroom.jpg" alt="Ученики занимаются в светлом учебном кабинете">
+                    <span class="hub-photo-note">УЧЁБА · В ЖИВОМ РИТМЕ</span>
+                </div>
+                <div class="hub-intro__copy">
+                    <p class="hub-eyebrow">Образовательная экосистема УмБазы</p>
+                    <h1 id="hub-title">Учиться<br><em>по-своему.</em></h1>
+                    <p class="hub-lede">AI-уроки, живые репетиторы и полезные разборы — в одном спокойном пространстве.</p>
+                </div>
+            </div>
+
+            <div class="hub-paths">
+                <article class="hub-card hub-card--ai" role="button" tabindex="0" onclick="startAiFlow()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();startAiFlow();}">
+                    <div class="hub-card__body">
+                        <div class="hub-card__meta"><span class="hub-card__number">01</span><span class="hub-card__tag">ИИ-РЕПЕТИТОР</span></div>
+                        <h2>Учёба<br>с ИИ</h2>
+                        <p>Персональный урок, понятное объяснение и квиз — под ваш уровень и темп.</p>
+                        <span class="hub-card__cta" aria-hidden="true"><span>↗</span></span>
+                    </div>
+                </article>
+
+                <a href="marketplace.html" class="hub-card hub-card--tutors">
+                    <div class="hub-card__body">
+                        <div class="hub-card__meta"><span class="hub-card__number">02</span><span class="hub-card__tag">МАРКЕТПЛЕЙС</span></div>
+                        <h2>Найти<br>репетитора</h2>
+                        <p>Проверенные репетиторы, живые отзывы и формат занятий, который подходит семье.</p>
+                        <span class="hub-card__cta" aria-hidden="true"><span>↗</span></span>
+                    </div>
+                </a>
+
+                <article class="hub-card hub-card--pulse">
+                    <div class="hub-card__body">
+                        <div class="hub-card__meta"><span class="hub-card__number">03</span><span class="hub-card__tag">МЕДИА</span></div>
+                        <h2>Новости<br>и аналитика</h2>
+                        <p>Законы, методики и события EdTech — коротко, по делу и с пользой.</p>
+                        <a href="#news-preview" class="hub-card__cta" aria-label="Читать новости и аналитику"><span>↗</span></a>
+                    </div>
+                </article>
+            </div>
+
+            <section id="marketplace-preview" class="home-feature home-feature--marketplace" aria-labelledby="marketplace-preview-title">
+                <div class="home-feature__copy">
+                    <span class="home-feature__eyebrow">МАРКЕТПЛЕЙС · ДЛЯ РОДИТЕЛЕЙ</span>
+                    <h2 id="marketplace-preview-title">Репетитор под вашу задачу — в пару кликов</h2>
+                    <p>Фильтруйте по городу, предмету, уровню и бюджету. Смотрите профиль, формат занятий и отзывы до первого сообщения.</p>
+                    <a class="home-feature__link" href="marketplace.html">Открыть поиск репетитора <span>↗</span></a>
+                </div>
+                <div class="home-filter-card" aria-label="Пример фильтров поиска">
+                    <div class="home-filter-card__top"><span>ПОИСК ДЛЯ РОДИТЕЛЕЙ</span><b>Уфа</b></div>
+                    <div class="home-filter-card__chips"><span>Математика</span><span>ОГЭ</span><span>до 1 500 ₽</span></div>
+                    <div class="home-filter-card__result"><span class="home-avatar">АК</span><div><b>Алина К.</b><small>Математика · 5 лет опыта</small></div><strong>4.9 <i>★</i></strong></div>
+                    <div class="home-filter-card__result"><span class="home-avatar home-avatar--mint">ИП</span><div><b>Илья П.</b><small>ОГЭ, ЕГЭ · онлайн и кабинет</small></div><strong>5.0 <i>★</i></strong></div>
+                </div>
+            </section>
+
+            <section id="news-preview" class="home-news" aria-labelledby="news-preview-title">
+                <div class="home-section-head"><div><span class="home-feature__eyebrow">ПУЛЬС · НОВОСТИ И АНАЛИТИКА</span><h2 id="news-preview-title">Последние материалы</h2></div><a href="news.html">Все новости <span>↗</span></a></div>
+                <div class="home-news-grid">
+                    <a class="home-news-card home-news-card--lead" href="news/o-proekte-umbaza.html"><span class="home-news-card__tag">ТЕХНОЛОГИИ</span><strong>«УмБаза» — технологический прорыв в образовании</strong><small>Как персональные AI-уроки меняют привычный сценарий обучения.</small><em>Читать материал ↗</em></a>
+                    <a class="home-news-card home-news-card--blue" href="news/ai-uroki-dlya-shkoly.html"><span class="home-news-card__tag">AI И ОБУЧЕНИЕ</span><strong>Как AI помогает создавать школьные уроки</strong><small>Наглядные материалы, объяснения и проверка знаний.</small><em>Читать ↗</em></a>
+                    <a class="home-news-card home-news-card--sand" href="news/podgotovka-k-ekzamenam.html"><span class="home-news-card__tag">ЭКЗАМЕНЫ</span><strong>Подготовка к экзаменам с персональными уроками</strong><small>Спокойный маршрут подготовки с понятными шагами.</small><em>Читать ↗</em></a>
+                    <a class="home-news-card home-news-card--mint" href="news/dlya-roditeley.html"><span class="home-news-card__tag">РОДИТЕЛЯМ</span><strong>Как контролировать успеваемость ребёнка без репетиторов</strong><small>Что помогает видеть прогресс и экономить семейный бюджет.</small><em>Читать ↗</em></a>
+                    <a class="home-news-card home-news-card--violet" href="news/dlya-prepodavateley-shkol.html"><span class="home-news-card__tag">ПРЕПОДАВАТЕЛЯМ</span><strong>Как технологии помогают учителю</strong><small>Готовые уроки, наглядные материалы и мониторинг успеваемости.</small><em>Читать ↗</em></a>
+                    <a class="home-news-card home-news-card--rose" href="news/dlya-uchenikov-i-studentov.html"><span class="home-news-card__tag">УЧЕНИКАМ</span><strong>Почему репетиторы перестают быть панацеей</strong><small>Как технологии делают учёбу проще и доступнее.</small><em>Читать ↗</em></a>
+                    <a class="home-news-card home-news-card--blue" href="news/roditelyam-i-uchitelyam.html"><span class="home-news-card__tag">СЕМЬЯ И ШКОЛА</span><strong>УмБаза для родителей и преподавателей</strong><small>Общий язык для обратной связи и поддержки ребёнка.</small><em>Читать ↗</em></a>
+                </div>
+            </section>
+
+            <section id="reviews" class="home-reviews" aria-labelledby="reviews-title">
+                <div class="home-section-head"><div><span class="home-feature__eyebrow">ОТЗЫВЫ СООБЩЕСТВА</span><h2 id="reviews-title">Результат, который чувствуется</h2></div><div class="home-rating"><strong>4.9</strong><span>★★★★★<small>средняя оценка услуг</small></span></div></div>
+                <div class="home-reviews-grid"><article class="home-review"><div class="home-review__top"><span class="home-avatar">ЕВ</span><div><b>Елена В.</b><small>мама ученика, Уфа</small></div><span class="home-review__stars">★★★★★</span></div><p>«Нашли репетитора по математике без длинных переписок. Уже через месяц сын стал увереннее отвечать у доски».</p></article><article class="home-review"><div class="home-review__top"><span class="home-avatar home-avatar--mint">МС</span><div><b>Марат С.</b><small>ученик 9 класса</small></div><span class="home-review__stars">★★★★★</span></div><p>«В УмБазе удобно сначала разобрать тему с AI, а потом выбрать живого преподавателя для практики».</p></article><article class="home-review"><div class="home-review__top"><span class="home-avatar home-avatar--violet">АК</span><div><b>Анна К.</b><small>репетитор по английскому</small></div><span class="home-review__stars">★★★★★</span></div><p>«Нравится, что ученики приходят уже с понятной задачей. Так проще выстроить занятие с первого раза».</p></article></div>
+            </section>
+
+            <div class="hub-footnote">
+                <span><b>Ум — это база.</b> А дальше выбор за вами.</span>
+                <span class="hub-footnote__line"></span>
+                <span>Для учеников · родителей · преподавателей</span>
+            </div>
+        </section>
+
+        <div id="ai-experience" class="ai-experience" aria-hidden="true">
+            <button type="button" class="hub-back" onclick="returnToHub()">← Вернуться к маршрутам</button>
+
+        <!-- HERO — animated greeting -->
+        <section class="text-center mb-8 md:mb-10">
+            <div class="hero-brand" aria-label="УмБаза — Ум это База">
+                <span class="hero-brand__overline">Образовательная AI-платформа</span>
+                <div class="hero-brand__mark-wrap" aria-hidden="true">
+                    <span class="hero-brand__glow"></span>
+                    <img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--hero">
+                </div>
+            </div>
+            <div class="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-medium text-accent-blue mb-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse"></span>
+                Персональное обучение с AI
+            </div>
+            <div class="hero-greeting greeting-hero mb-2">
+                <h1 id="greeting-text" class="greeting-text" aria-live="polite">Приветствую!</h1>
+            </div>
+            <p class="text-base text-theme-secondary max-w-lg mx-auto">
+                Сложная тема превращается в понятный урок, наглядные примеры и проверку знаний — за одну минуту.
+            </p>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="hero-about mb-8 md:mb-10">
+            <div class="glass-strong rounded-[2rem] p-6 md:p-10 premium-panel">
+                <p class="text-theme-secondary leading-relaxed text-center max-w-2xl mx-auto">
+                    <strong class="text-theme-primary">УмБаза</strong> собирает персональный урок под ваш уровень: объясняет тему, показывает её на примерах и проверяет понимание. Первый урок — сразу, без регистрации.
+                </p>
+            </div>
+        </section>
+
+        <section class="hero-plans mb-10 md:mb-12">
+            <div class="section-heading">
+                <span>Учитесь бесплатно или без ограничений</span>
+                <h2>Сначала урок — тариф можно выбрать позже.</h2>
+                <p>Попробуйте УмБазу бесплатно. Когда уроки закончатся, мы покажем подходящие варианты для ученика, семьи и преподавателя.</p>
+            </div>
+            <div class="plan-free-note glass" aria-label="Бесплатный доступ">
+                <span class="plan-free-note__mark" aria-hidden="true">0 ₽</span>
+                <p><strong>Начать можно бесплатно:</strong> первый урок без регистрации, после регистрации — до трёх уроков в день.</p>
+                <a href="plans.html">Смотреть тарифы →</a>
+            </div>
+        </section>
+
+        <!-- LEVEL SELECTOR — главный следующий шаг -->
+        <section class="hero-levels mb-10 md:mb-12" id="levels-section">
+            <div class="levels-cta glass-strong rounded-[1.75rem] p-6 md:p-8 max-w-3xl mx-auto">
+                <div class="levels-cta__head text-center mb-6 md:mb-7">
+                    <span class="levels-cta__badge">Начните здесь</span>
+                    <h2 class="levels-cta__title text-xl md:text-2xl font-bold text-theme-primary mt-3 mb-2">Выберите уровень образования</h2>
+                    <p class="text-sm text-theme-secondary max-w-md mx-auto">Школа, ВУЗ или доп. образование — один клик, и можно создать первый урок</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-3 md:gap-4" id="level-buttons">
+                    <button type="button" class="level-btn level-btn--cta" id="level-school" onclick="selectLevel('school')">
+                        <span class="level-btn__mark" aria-hidden="true">Ш</span>
+                        <div class="font-semibold text-base mb-0.5">Школа</div>
+                        <div class="text-xs text-theme-muted">1–11 класс</div>
+                    </button>
+                    <button type="button" class="level-btn level-btn--cta" id="level-university" onclick="selectLevel('university')">
+                        <span class="level-btn__mark" aria-hidden="true">В</span>
+                        <div class="font-semibold text-base mb-0.5">ВУЗ</div>
+                        <div class="text-xs text-theme-muted">Высшее образование</div>
+                    </button>
+                    <button type="button" class="level-btn level-btn--cta" id="level-extra" onclick="selectLevel('extra')">
+                        <span class="level-btn__mark level-btn__mark--violet" aria-hidden="true">+</span>
+                        <div class="font-semibold text-base mb-0.5">Доп. образование</div>
+                        <div class="text-xs text-theme-muted">Курсы и повышение квалификации</div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS — компактно, после выбора уровня -->
+        <section class="hero-steps hero-steps--compact mb-14 md:mb-16">
+            <h2 class="hero-steps__label text-center mb-4">Как это работает</h2>
+            <div class="grid md:grid-cols-3 gap-2 md:gap-3 max-w-3xl mx-auto">
+                <div class="step-card step-card--compact rounded-xl p-3 md:p-4">
+                    <div class="step-card__num">1</div>
+                    <h3 class="font-medium mb-0.5 text-theme-primary text-sm">Выберите уровень</h3>
+                    <p class="text-xs text-theme-muted leading-snug">Класс и предмет под вашу программу</p>
+                </div>
+                <div class="step-card step-card--compact rounded-xl p-3 md:p-4">
+                    <div class="step-card__num">2</div>
+                    <h3 class="font-medium mb-0.5 text-theme-primary text-sm">AI создаёт урок</h3>
+                    <p class="text-xs text-theme-muted leading-snug">Текст и иллюстрации за минуту</p>
+                </div>
+                <div class="step-card step-card--compact rounded-xl p-3 md:p-4">
+                    <div class="step-card__num step-card__num--violet">3</div>
+                    <h3 class="font-medium mb-0.5 text-theme-primary text-sm">Готовый результат</h3>
+                    <p class="text-xs text-theme-muted leading-snug">Материал и квиз для проверки</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKSPACE — revealed after level selection -->
+        <div id="workspace-panel" class="workspace-panel mb-8">
+            <div class="flex items-center justify-between mb-4 px-1">
+                <span class="level-selected-label">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span id="selected-level-label">Школа</span>
+                </span>
+                <button type="button" class="btn-ghost" onclick="changeLevel()">← Сменить уровень</button>
+            </div>
+
+            <!-- GENERATION FORM -->
+            <section id="gen-section" class="hero-form">
+                <div class="glass-strong rounded-2xl p-6 md:p-8 max-w-xl mx-auto">
+                    <div class="space-y-4">
+                        <!-- Class + Subject FIRST -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label id="grade-label" class="block text-sm font-medium text-theme-secondary mb-1.5">Класс</label>
+                                <select id="grade" class="input-glass w-full px-4 py-3 text-sm">
+                                    <option value="">Выберите</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-theme-secondary mb-1.5">Предмет</label>
+                                <select id="subject" class="input-glass w-full px-4 py-3 text-sm">
+                                    <option value="">Выберите</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Topic BELOW -->
+                        <div>
+                            <label class="block text-sm font-medium text-theme-secondary mb-1.5">Тема урока</label>
+                            <input type="text" id="topic" placeholder="Например: Обыкновенные дроби"
+                                class="input-glass w-full px-4 py-3 text-sm">
+                        </div>
+
+                        <button onclick="generateLesson()" id="generate-btn"
+                            class="btn-primary btn-magnetic w-full py-3.5 text-sm font-semibold mt-2">
+                            Сгенерировать урок
+                        </button>
+                    </div>
+
+                    <p class="text-xs text-theme-muted mt-4 text-center guest-hint" id="guest-hint"></p>
+                </div>
+            </section>
+        </div>
+
+        <!-- LOADING STATE -->
+        <section id="loading-section" class="hidden text-center py-20">
+            <div class="spinner mx-auto mb-6"></div>
+            <h2 class="text-xl font-semibold mb-2 text-theme-primary">Генерируем урок...</h2>
+            <div id="loading-status" class="gen-status">AI создаёт текст урока</div>
+            <div class="flex justify-center gap-1 mt-6">
+                <span class="loading-dot w-2 h-2 bg-accent-cyan rounded-full"></span>
+                <span class="loading-dot w-2 h-2 bg-accent-cyan rounded-full"></span>
+                <span class="loading-dot w-2 h-2 bg-accent-cyan rounded-full"></span>
+            </div>
+        </section>
+
+        <!-- ERROR STATE -->
+        <section id="error-section" class="hidden text-center py-20">
+            <div class="w-16 h-16 rounded-full glass flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                </svg>
+            </div>
+            <h2 class="text-xl font-semibold mb-2 text-theme-primary">Ошибка генерации</h2>
+            <p id="error-message" class="text-theme-secondary mb-6">Что-то пошло не так. Попробуйте ещё раз.</p>
+            <button onclick="resetForm()" class="btn-primary px-6 py-2.5 text-sm">Попробовать снова</button>
+        </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer relative z-10 border-t border-theme mt-12">
+        <div class="max-w-6xl mx-auto px-6 py-10">
+            <div class="footer-grid">
+                <!-- Left: Ministry -->
+                <div class="footer-ministry">
+                    <img src="assets/minobr-emblem.jpg" alt="Эмблема Министерства образования Российской Федерации" width="40" height="40">
+                    <p>Материалы формируются с учётом <strong>ФГОС Российской Федерации</strong>. AI может допускать неточности — проверяйте важные факты.</p>
+                </div>
+
+                <div class="footer-partners">
+                    <a href="plans.html" class="text-xs text-theme-muted hover:text-accent-blue">Тарифы и оплата</a>
+                </div>
+
+                <div class="footer-payment">
+                    <span class="text-xs text-theme-muted">Тарифы — с 1 сентября</span>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-4 mt-8 pt-6 border-t border-theme">
+                <a href="leaderboard.html" class="text-xs text-theme-muted hover:text-accent-blue">Доска почёта</a>
+                <span class="text-theme-muted">·</span>
+                <a href="faq.html" class="text-xs text-theme-muted hover:text-accent-blue">FAQ</a>
+                <span class="text-theme-muted">·</span>
+                <a href="news.html" class="text-xs text-theme-muted hover:text-accent-blue">Новости</a>
+                <span class="text-theme-muted">·</span>
+                <a href="repetitor-po-predmetam.html" class="text-xs text-theme-muted hover:text-accent-blue">Репетитор по предметам</a>
+                <span class="text-theme-muted">·</span>
+                <button type="button" onclick="openSupport()" class="text-xs text-theme-muted hover:text-accent-blue">Служба поддержки</button>
+                <span class="text-theme-muted">·</span>
+                <a href="oferta.html" class="text-xs text-theme-muted hover:text-accent-blue">Оферта</a>
+                <span class="text-theme-muted">·</span>
+                <a href="raffle-offer.html" class="text-xs text-theme-muted hover:text-accent-blue">Оферта розыгрыша</a>
+                <span class="text-theme-muted">·</span>
+                <a href="confidentiality.html" class="text-xs text-theme-muted hover:text-accent-blue">Политика конфиденциальности</a>
+                <span class="text-theme-muted">·</span>
+                <a href="https://vk.com/umbaza" data-link-vk target="_blank" rel="noopener" class="text-xs text-theme-muted hover:text-accent-blue">ВКонтакте</a>
+                <span class="text-theme-muted">·</span>
+                <a href="https://max.ru/channel_UmBaza" data-link-max target="_blank" rel="noopener" class="text-xs text-theme-muted hover:text-accent-blue">MAX</a>
+                <span class="text-theme-muted">·</span>
+                <a href="https://dzen.ru/umbaza102" data-link-dzen target="_blank" rel="noopener" class="text-xs text-theme-muted hover:text-accent-blue">Дзен</a>
+                <span class="text-theme-muted hidden" id="extra-footer-sep">·</span>
+                <a href="#" id="extra-footer-link" class="text-xs text-theme-muted hover:text-accent-blue hidden">О проекте</a>
+            </div>
+
+            <div class="text-center mt-4">
+                <div class="font-bold text-theme-primary">УмБаза</div>
+                <div class="text-xs text-theme-muted mt-1">Образовательная AI-платформа</div>
+                <div class="text-xs text-theme-muted mt-1">ИНН: 0272937907 · ОГРН: 1260200018088</div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="support-fab" type="button" onclick="openSupport()" aria-label="Открыть службу поддержки">
+        <span>?</span><em>Помощь</em>
+    </button>
+
+    <div id="support-modal" class="payment-modal" onclick="closeSupport(event)">
+        <div class="payment-modal-card support-card" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeSupport()" aria-label="Закрыть">×</button>
+            <div class="plan-kicker">Поддержка УмБазы</div>
+            <h3 class="text-xl font-semibold text-theme-primary mb-2">Чем можем помочь?</h3>
+            <p class="text-sm text-theme-secondary mb-5">
+                Опишите вопрос — сообщение уйдёт на
+                <a href="mailto:partners@умбаза.рф" class="text-accent-blue hover:underline">partners@умбаза.рф</a>.
+            </p>
+            <label class="block text-sm font-medium text-theme-secondary mb-1.5">Ваш email</label>
+            <input id="support-email" type="email" class="input-glass w-full px-4 py-3 text-sm mb-3" placeholder="you@example.com">
+            <label class="block text-sm font-medium text-theme-secondary mb-1.5">Сообщение</label>
+            <textarea id="support-message" class="input-glass w-full px-4 py-3 text-sm mb-4" rows="4" placeholder="Расскажите, что произошло"></textarea>
+            <button class="btn-primary w-full py-3 text-sm" onclick="sendSupport()">Отправить обращение</button>
+        </div>
+    </div>
+
+    <script src="js/education-config.js?v=20260804b"></script>
+    <script src="js/site-config.js?v=20260804b"></script>
+    <script src="js/api.js?v=20260814a"></script>
+    <script src="js/auth.js?v=20260804b"></script>
+    <script src="js/guest-limit.js?v=20260814a"></script>
+    <script src="js/animations.js?v=20261009motion1"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadSiteConfig();
+            updateNavAccount();
+            updateGuestHint();
+            applyAuthVisibility();
+            document.querySelectorAll('a[href="index.html#levels-section"], a[href="#levels-section"]').forEach(link => {
+                link.addEventListener('click', event => {
+                    event.preventDefault();
+                    startAiFlow();
+                });
+            });
+        });
+
+        function updateNavAccount() {
+            const btn = document.getElementById('nav-account');
+            if (!btn) return;
+            const compact = window.matchMedia('(max-width: 640px)').matches;
+            if (isLoggedIn()) {
+                btn.textContent = compact ? 'Кабинет' : 'Личный кабинет';
+                btn.href = 'account.html';
+                btn.classList.remove('hidden');
+            } else if (!isAuthEnabled()) {
+                btn.classList.add('hidden');
+            } else {
+                btn.classList.remove('hidden');
+                btn.textContent = compact ? 'Вход' : 'Войти';
+                btn.href = 'auth.html';
+            }
+        }
+
+        function updateGuestHint() {
+            const el = document.getElementById('guest-hint');
+            if (!el) return;
+            const text = getGuestRemainingText();
+            if (text) {
+                el.textContent = text;
+                if (getGuestLessonCount() >= 1) el.classList.add('guest-hint-warning');
+            } else {
+                el.textContent = 'Генерация занимает 10–30 секунд';
+            }
+        }
+
+        function openSupport() { document.getElementById('support-modal').classList.add('active'); }
+        function closeSupport(e) {
+            if (e && e.target !== e.currentTarget) return;
+            document.getElementById('support-modal').classList.remove('active');
+        }
+        function startAiFlow() {
+            const hub = document.getElementById('ecosystem-hub');
+            const experience = document.getElementById('ai-experience');
+            if (!hub || !experience) return;
+            hub.hidden = true;
+            experience.classList.add('is-visible');
+            experience.setAttribute('aria-hidden', 'false');
+            document.body.classList.remove('hub-mode');
+            document.getElementById('levels-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        function returnToHub() {
+            const hub = document.getElementById('ecosystem-hub');
+            const experience = document.getElementById('ai-experience');
+            if (!hub || !experience) return;
+            experience.classList.remove('is-visible');
+            experience.setAttribute('aria-hidden', 'true');
+            hub.hidden = false;
+            document.body.classList.add('hub-mode');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        async function sendSupport() {
+            const email = document.getElementById('support-email').value.trim();
+            const message = document.getElementById('support-message').value.trim();
+            if (!email || !message) return showToast('Заполните email и сообщение', 'error');
+            localStorage.setItem('support_draft', JSON.stringify({ email, message, createdAt: new Date().toISOString() }));
+            try {
+                await api.sendSupport(email, message);
+                closeSupport();
+                showToast('Сообщение отправлено на partners@умбаза.рф', 'success');
+            } catch (err) {
+                const mailto = `mailto:${SITE_CONFIG.support?.email || 'partners@умбаза.рф'}?subject=${encodeURIComponent('Обратная связь УмБаза')}&body=${encodeURIComponent('От: ' + email + '\n\n' + message)}`;
+                closeSupport();
+                showToast(err.message || 'Открываем почтовый клиент…', 'info');
+                window.location.href = mailto;
+            }
+        }
+        function selectLevel(level) {
+            const config = EDUCATION_LEVELS[level];
+            if (!config) return;
+
+            if (!config.enabled) {
+                showToast(`${config.label} — скоро будет доступно`, 'info');
+                return;
+            }
+
+            revealWorkspace(level);
+        }
+
+        function changeLevel() {
+            hideWorkspace();
+            document.getElementById('levels-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        async function generateLesson() {
+            if (!requireAuthForGeneration()) return;
+
+            if (!selectedLevel) {
+                showToast('Сначала выберите уровень образования', 'error');
+                return;
+            }
+
+            const topic = document.getElementById('topic').value.trim();
+            const grade = document.getElementById('grade').value;
+            const subject = document.getElementById('subject').value;
+
+            if (!topic || !grade || !subject) {
+                showToast('Пожалуйста, заполните все поля', 'error');
+                return;
+            }
+
+            document.getElementById('workspace-panel').classList.add('hidden');
+            document.getElementById('levels-section').classList.add('hidden');
+            document.querySelector('.hero-steps')?.classList.add('hidden');
+            document.querySelector('.hero-about')?.classList.add('hidden');
+            document.getElementById('loading-section').classList.remove('hidden');
+            animateLoading();
+
+            setTimeout(() => {
+                document.getElementById('loading-status').textContent = 'Ищем схемы из учебников...';
+            }, 5000);
+
+            try {
+                const lesson = await api.generateLesson(topic, grade, subject, selectedLevel);
+                onLessonGenerated();
+                localStorage.setItem('current_lesson', JSON.stringify(lesson));
+                window.location.href = `lesson.html?id=${lesson.id}`;
+            } catch (error) {
+                if (handleGuestLimitError(error) || handleGenerationAccessError(error)) return;
+                document.getElementById('loading-section').classList.add('hidden');
+                document.getElementById('error-section').classList.remove('hidden');
+                const msg = error.message || 'Попробуйте ещё раз';
+                document.getElementById('error-message').textContent = msg;
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('error-section').classList.add('hidden');
+            document.getElementById('workspace-panel').classList.remove('hidden');
+            document.getElementById('levels-section').classList.remove('hidden');
+            document.querySelector('.hero-steps')?.classList.remove('hidden');
+            document.querySelector('.hero-about')?.classList.remove('hidden');
+
+            if (selectedLevel) {
+                const panel = document.getElementById('workspace-panel');
+                panel.classList.add('is-visible');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

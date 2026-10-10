@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор новостей — УмБаза</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="assets/brand/umbaza-mark-v2.png">
+    <script src="js/tailwindcss-play-3.4.17.js"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { accent: { cyan: '#0099ff', blue: '#2563eb', violet: '#7c3aed' } } } }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=20260920titles">
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3782581", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782581;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</head>
+<body class="font-sans antialiased min-h-screen news-editor-page">
+    <nav class="relative z-10 border-b border-theme glass">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
+            <a href="index.html" class="flex items-center gap-2 shrink-0">
+                <div class="brand-logo-compact"><img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--compact"></div>
+                <span class="font-bold text-theme-primary">УмБаза</span>
+            </a>
+            <a href="news.html" class="text-sm text-theme-muted hover:text-accent-blue">Открыть новости ↗</a>
+        </div>
+    </nav>
+
+    <main class="news-editor-shell max-w-6xl mx-auto px-6 py-9 md:py-14">
+        <header class="news-editor-hero">
+            <div>
+                <div class="news-editor-eyebrow"><span aria-hidden="true"></span> Редактор новостей</div>
+                <h1>Соберите новый пост</h1>
+                <p>Текст и картинка сразу появятся в разделе «Новости» — так же просто, как публикация в социальной сети.</p>
+            </div>
+            <div class="news-editor-steps" aria-label="Порядок публикации">
+                <span class="is-active">01</span><i></i><span>02</span><i></i><span>03</span>
+            </div>
+        </header>
+
+        <div id="editor-access-loading" class="editor-access-card glass rounded-2xl" role="status">
+            <span class="editor-spinner" aria-hidden="true"></span>
+            <div><strong>Проверяем доступ</strong><p>Это займёт несколько секунд</p></div>
+        </div>
+
+        <div id="editor-access-denied" class="hidden editor-access-card editor-access-card--denied glass rounded-2xl" role="alert">
+            <span class="editor-access-icon" aria-hidden="true">!</span>
+            <div><strong>Нет доступа к публикации</strong><p>Войдите под аккаунтом, которому разрешено добавлять новости.</p></div>
+            <a href="auth.html?redirect=news-editor.html" class="btn-primary">Войти</a>
+        </div>
+
+        <div id="editor-workspace" class="hidden news-editor-grid">
+            <form id="news-editor-form" class="news-editor-form glass-strong rounded-3xl" novalidate>
+                <div class="editor-form-head">
+                    <div><span>Новая публикация</span><h2>Что расскажем?</h2></div>
+                    <span id="editor-account" class="editor-account"></span>
+                </div>
+
+                <label class="editor-field" for="news-title">
+                    <span class="editor-field__label">Заголовок <b id="title-count">0/180</b></span>
+                    <input id="news-title" name="title" type="text" minlength="3" maxlength="180" required placeholder="Например: Новая возможность в УмБазе">
+                </label>
+
+                <label class="editor-field" for="news-title-size">
+                    <span class="editor-field__label">Размер заголовка <output id="title-size-value" for="news-title-size">36 px</output></span>
+                    <input id="news-title-size" name="title_font_size" type="range" min="24" max="72" step="1" value="36" aria-describedby="title-size-hint">
+                    <small id="title-size-hint">От 24 до 72 px на странице новости. По умолчанию — 36 px, примерно вдвое меньше прежнего. В ленте и на телефоне заголовок компактнее.</small>
+                </label>
+
+                <label class="editor-field" for="news-content">
+                    <span class="editor-field__label">Текст публикации</span>
+                    <textarea id="news-content" name="content" minlength="10" maxlength="50000" required rows="10" placeholder="Напишите новость. Разделяйте абзацы пустой строкой — на сайте они сохранятся."></textarea>
+                    <small>Абзацы и переносы строк будут сохранены.</small>
+                </label>
+
+                <label class="editor-field" for="news-excerpt">
+                    <span class="editor-field__label">Короткое описание <b id="excerpt-count">0/500</b></span>
+                    <textarea id="news-excerpt" name="excerpt" maxlength="500" rows="3" placeholder="Необязательно — если оставить пустым, описание составится из начала текста."></textarea>
+                </label>
+
+                <div class="editor-field">
+                    <span class="editor-field__label">Картинка</span>
+                    <label id="news-image-drop" class="news-image-drop" for="news-image">
+                        <input id="news-image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                        <span class="news-image-drop__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <span><strong>Перетащите картинку сюда</strong><small>или нажмите, чтобы выбрать · JPG, PNG, WebP, GIF · до 8 МБ</small></span>
+                    </label>
+                    <div id="selected-image" class="hidden selected-image">
+                        <img id="selected-image-thumb" alt="Предпросмотр выбранной картинки">
+                        <span><strong id="selected-image-name"></strong><small id="selected-image-size"></small></span>
+                        <button id="remove-image" type="button" aria-label="Убрать картинку">×</button>
+                    </div>
+                </div>
+
+                <div id="editor-message" class="hidden editor-message" role="status" aria-live="polite"></div>
+
+                <div class="editor-actions">
+                    <p><span aria-hidden="true"></span> После публикации пост сразу увидят посетители</p>
+                    <button id="publish-button" type="submit" class="btn-primary editor-publish-button">
+                        <span>Опубликовать</span><b aria-hidden="true">→</b>
+                    </button>
+                </div>
+            </form>
+
+            <aside class="news-preview-column" aria-label="Предпросмотр публикации">
+                <div class="news-preview-heading"><span>Предпросмотр</span><i>На сайте</i></div>
+                <article class="news-preview-card glass rounded-3xl">
+                    <div id="preview-image-wrap" class="hidden news-preview-card__image"><img id="preview-image" alt=""></div>
+                    <div class="news-preview-card__body">
+                        <div class="news-preview-card__meta"><span aria-hidden="true"></span><time id="preview-date"></time></div>
+                        <h2 id="preview-title">Заголовок будущей новости</h2>
+                        <p id="preview-excerpt">Здесь появится короткое описание публикации — именно так её увидят читатели в разделе новостей.</p>
+                        <span class="news-preview-card__link">Читать публикацию →</span>
+                    </div>
+                </article>
+                <p class="news-preview-hint">Предпросмотр обновляется, пока вы печатаете. После публикации текст можно будет открыть целиком.</p>
+            </aside>
+        </div>
+    </main>
+
+    <script src="js/api.js?v=20260818n"></script>
+    <script src="js/news-editor.js?v=20260920titles"></script>
+</body>
+</html>

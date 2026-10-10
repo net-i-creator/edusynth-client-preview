@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доска почёта — УмБаза</title>
+    <meta name="description" content="Топ-100 учеников УмБаза по баллам за тесты. Ежемесячная рулетка для лидеров.">
+    <link rel="icon" type="image/png" href="assets/brand/umbaza-mark-v2.png">
+    <script src="js/tailwindcss-play-3.4.17.js"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { accent: { cyan: '#0099ff', blue: '#2563eb', violet: '#7c3aed' } } } }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=20260815b">
+    <script src="js/yandex-metrika.js"></script>
+    <script src="js/unified-nav.js?v=20260815a" defer></script>
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3782581", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782581;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</head>
+<body class="font-sans antialiased min-h-screen">
+    <noscript><div><img src="https://mc.yandex.ru/watch/110566914" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <nav class="relative z-10 border-b border-theme glass">
+        <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="brand-logo-compact">
+                    <img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--compact">
+                </div>
+                <span class="font-bold text-theme-primary">УмБаза</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm">
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="account.html" class="nav-link" id="nav-account-link">Кабинет</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-6 py-10 md:py-14">
+        <header class="mb-8 text-center">
+            <p class="text-xs font-semibold uppercase tracking-wider text-accent-blue mb-2">Спортивный интерес</p>
+            <h1 class="text-3xl font-extrabold text-theme-primary mb-2">Доска почёта</h1>
+            <p class="text-sm text-theme-secondary max-w-xl mx-auto">
+                Проходите тесты, копите баллы, попадайте в топ-100 — и крутите отдельную рулетку раз в месяц.
+            </p>
+        </header>
+
+        <section class="glass-strong rounded-2xl p-5 md:p-6 mb-6">
+            <div class="grid sm:grid-cols-3 gap-4 text-center">
+                <div>
+                    <div class="text-2xl font-bold text-accent-blue" id="my-points">—</div>
+                    <div class="text-xs text-theme-muted mt-1">Ваши баллы</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-accent-violet" id="my-rank">—</div>
+                    <div class="text-xs text-theme-muted mt-1">Место</div>
+                </div>
+                <div>
+                    <div class="text-sm font-semibold text-theme-primary mt-1" id="roulette-hint">Загрузка…</div>
+                    <div class="text-xs text-theme-muted mt-1">Рулетка</div>
+                </div>
+            </div>
+            <div class="mt-5 flex flex-wrap justify-center gap-3">
+                <button type="button" id="spin-btn" class="btn-primary px-5 py-2.5 text-sm font-semibold hidden">Крутить рулетку</button>
+                <a href="auth.html?mode=register" id="register-cta" class="btn-primary px-5 py-2.5 text-sm font-semibold hidden">Зарегистрироваться</a>
+            </div>
+            <p id="spin-status" class="text-center text-sm text-theme-muted mt-3"></p>
+        </section>
+
+        <section class="glass rounded-2xl p-2 md:p-3 mb-8">
+            <div id="leaderboard-list" class="space-y-1">
+                <p class="text-sm text-theme-muted p-4 text-center">Загрузка рейтинга…</p>
+            </div>
+        </section>
+
+        <section class="text-sm text-theme-secondary space-y-2 glass rounded-xl p-5">
+            <h2 class="font-semibold text-theme-primary mb-2">Как начисляются баллы</h2>
+            <ul class="list-disc pl-5 space-y-1">
+                <li>За каждый правильный ответ в тесте — <strong>10 баллов</strong></li>
+                <li>Почти идеально (все кроме одного) — <strong>+10</strong></li>
+                <li>Идеальный результат — <strong>+25</strong></li>
+                <li>Баллы за урок начисляются один раз при первом прохождении теста</li>
+            </ul>
+            <p class="pt-2">Топ-100 крутит отдельную рулетку один раз в месяц. Остальные — пятничный рандомайзер.</p>
+        </section>
+    </main>
+
+    <div id="roulette-modal" class="prize-roulette-modal hidden" role="dialog" aria-modal="true" aria-labelledby="roulette-title">
+        <div class="prize-roulette-modal__card">
+            <h2 id="roulette-title" class="text-xl font-bold text-theme-primary mb-1">Рулетка призов</h2>
+            <p class="text-sm text-theme-muted mb-4" id="roulette-subtitle">Удачи!</p>
+            <div id="roulette-mount"></div>
+            <div class="prize-roulette-modal__result">
+                <p id="roulette-result" class="text-base font-semibold text-theme-primary"></p>
+            </div>
+            <button type="button" id="roulette-close" class="mt-4 text-sm text-accent-blue hover:underline">Закрыть</button>
+        </div>
+    </div>
+
+    <script src="js/api.js?v=20260814a"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/roulette.js?v=20260814a"></script>
+    <script>
+        const listEl = document.getElementById('leaderboard-list');
+        const spinBtn = document.getElementById('spin-btn');
+        const registerCta = document.getElementById('register-cta');
+        const spinStatus = document.getElementById('spin-status');
+        const modal = document.getElementById('roulette-modal');
+        let activePool = null;
+        let roulette = null;
+
+        function rankClass(rank) {
+            if (rank === 1) return 'leaderboard-rank leaderboard-rank--gold';
+            if (rank === 2) return 'leaderboard-rank leaderboard-rank--silver';
+            if (rank === 3) return 'leaderboard-rank leaderboard-rank--bronze';
+            return 'leaderboard-rank';
+        }
+
+        function showBoardMessage(text) {
+            const message = document.createElement('p');
+            message.className = 'text-sm text-theme-muted p-4 text-center';
+            message.textContent = text;
+            listEl.replaceChildren(message);
+        }
+
+        async function loadBoard() {
+            const data = await api.getLeaderboard();
+            if (!data?.entries?.length) {
+                showBoardMessage('Пока пусто — станьте первым, пройдя тест!');
+            } else {
+                const entries = document.createDocumentFragment();
+                data.entries.forEach((e) => {
+                    const top = e.rank <= 3 ? ' leaderboard-row--top' : '';
+                    const me = e.is_me ? ' leaderboard-row--me' : '';
+                    const row = document.createElement('div');
+                    row.className = `leaderboard-row${top}${me}`;
+                    const rank = document.createElement('span');
+                    rank.className = rankClass(e.rank);
+                    rank.textContent = e.rank;
+                    const nickname = document.createElement('span');
+                    nickname.className = 'font-medium text-theme-primary truncate';
+                    nickname.textContent = `${e.nickname}${e.is_me ? ' (вы)' : ''}`;
+                    const points = document.createElement('span');
+                    points.className = 'font-bold text-accent-blue tabular-nums';
+                    points.textContent = e.points;
+                    row.append(rank, nickname, points);
+                    entries.appendChild(row);
+                });
+                listEl.replaceChildren(entries);
+            }
+
+            if (data?.me) {
+                document.getElementById('my-points').textContent = data.me.points;
+                document.getElementById('my-rank').textContent = data.me.rank || '—';
+            } else {
+                document.getElementById('my-points').textContent = '0';
+                document.getElementById('my-rank').textContent = '—';
+            }
+        }
+
+        async function loadRouletteStatus() {
+            if (!isLoggedIn()) {
+                registerCta.classList.remove('hidden');
+                document.getElementById('roulette-hint').textContent = 'Войдите, чтобы крутить';
+                return;
+            }
+            try {
+                const st = await api.getRouletteStatus();
+                if (st.top100?.available) {
+                    activePool = 'top100';
+                    spinBtn.classList.remove('hidden');
+                    document.getElementById('roulette-hint').textContent = 'Топ-100: можно крутить';
+                    spinStatus.textContent = 'Ваша ежемесячная рулетка топ-100 открыта.';
+                } else if (st.friday?.available) {
+                    activePool = 'friday';
+                    spinBtn.classList.remove('hidden');
+                    document.getElementById('roulette-hint').textContent = 'Пятничный рандомайзер';
+                    spinStatus.textContent = 'Можно крутить один раз на этой неделе.';
+                } else if (st.top100?.eligible) {
+                    activePool = null;
+                    document.getElementById('roulette-hint').textContent = 'Вы в топ-100';
+                    spinStatus.textContent = st.top100.claimed
+                        ? `Приз месяца: ${st.top100.claimed.label}`
+                        : 'Рулетка топ-100 доступна один раз в месяц.';
+                } else {
+                    activePool = null;
+                    document.getElementById('roulette-hint').textContent = st.friday?.is_friday
+                        ? 'Уже крутили'
+                        : 'Ждём пятницу';
+                    spinStatus.textContent = st.friday?.claimed
+                        ? `Приз недели: ${st.friday.claimed.label}`
+                        : 'Пятничный рандомайзер — раз в неделю.';
+                }
+            } catch (e) {
+                document.getElementById('roulette-hint').textContent = '—';
+            }
+        }
+
+        async function openSpin() {
+            if (!activePool) return;
+            const pool = await api.getRoulettePool(activePool);
+            document.getElementById('roulette-title').textContent =
+                activePool === 'top100' ? 'Рулетка топ-100' : 'Пятничный рандомайзер';
+            document.getElementById('roulette-subtitle').textContent = 'Крутим…';
+            document.getElementById('roulette-result').textContent = '';
+            modal.classList.remove('hidden');
+            roulette = new PrizeRoulette(document.getElementById('roulette-mount'), { prizes: pool.prizes });
+
+            spinBtn.disabled = true;
+            try {
+                const result = await api.spinRoulette(activePool);
+                await roulette.spinTo(result.prize.id);
+                document.getElementById('roulette-result').textContent = `Вы выиграли: ${result.prize.label}`;
+                document.getElementById('roulette-subtitle').textContent = 'Поздравляем!';
+                activePool = null;
+                spinBtn.classList.add('hidden');
+                await loadRouletteStatus();
+            } catch (err) {
+                document.getElementById('roulette-result').textContent = err.message || 'Не удалось крутить';
+                spinBtn.disabled = false;
+            }
+        }
+
+        spinBtn.addEventListener('click', openSpin);
+        document.getElementById('roulette-close').addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        if (!isLoggedIn()) {
+            const accountLink = document.getElementById('nav-account') || document.getElementById('nav-account-link');
+            if (accountLink) {
+                accountLink.href = 'auth.html';
+                accountLink.textContent = 'Войти';
+            }
+        }
+
+        loadBoard().catch(() => {
+            showBoardMessage('Не удалось загрузить рейтинг');
+        });
+        loadRouletteStatus();
+    </script>
+</body>
+</html>

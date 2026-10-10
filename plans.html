@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тарифы УмБаза — Ученик, Семейный и Преподаватель</title>
+    <meta name="description" content="Годовые тарифы УмБазы для самостоятельных занятий, семьи и преподавателей.">
+    <link rel="canonical" href="https://УмБаза.рф/plans.html">
+    <link rel="icon" type="image/png" href="assets/brand/umbaza-mark-v2.png">
+    <script src="js/tailwindcss-play-3.4.17.js"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { accent: { cyan: '#0099ff', blue: '#2563eb', violet: '#7c3aed' } },
+            fontFamily: { sans: ['Manrope', 'Inter', 'system-ui', 'sans-serif'] },
+        } } };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=20260815b">
+    <script src="js/yandex-metrika.js"></script>
+    <script src="js/unified-nav.js?v=20260815a" defer></script>
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3782581", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782581;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</head>
+<body class="font-sans antialiased overflow-x-hidden min-h-screen">
+    <noscript><div><img src="https://mc.yandex.ru/watch/110566914" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="sphere sphere-cyan w-[28rem] h-[28rem] -top-32 -left-32"></div>
+        <div class="sphere sphere-violet w-80 h-80 top-1/3 -right-40"></div>
+        <div class="glass-orb glass-orb-md bottom-20 left-8"></div>
+    </div>
+
+    <nav class="site-nav relative z-10 border-b border-theme">
+        <div class="site-nav__inner max-w-6xl mx-auto px-4 sm:px-6">
+            <a href="index.html" class="site-nav__brand">
+                <div class="site-nav__logo"><img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--nav"></div>
+                <span class="site-nav__title">УмБаза</span>
+            </a>
+            <div class="site-nav__links">
+                <a href="index.html" class="nav-link">Создать урок</a>
+                <a href="leaderboard.html" class="nav-link">Доска почёта</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </div>
+            <a href="account.html" id="nav-account" class="btn-account">Войти</a>
+        </div>
+    </nav>
+
+    <main class="relative z-10 max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <section class="plans-hero mb-9 md:mb-12">
+            <div>
+                <span class="plans-hero__eyebrow">Три режима УмБазы</span>
+                <h1>Выберите, кто будет учиться.</h1>
+                <p>Оплата привязывается к вашему кабинету по email. После подтверждения банком тариф обновится автоматически.</p>
+            </div>
+            <div class="plans-hero__lesson" aria-label="Бесплатные уроки">
+                <span>Бесплатно</span>
+                <strong>3</strong>
+                <p>урока в день после регистрации</p>
+                <a href="index.html">Создать урок →</a>
+            </div>
+        </section>
+
+        <div id="limit-notice" class="limit-notice glass hidden" role="status">
+            <div class="limit-notice__mark">→</div>
+            <div>
+                <strong id="limit-title">Бесплатные уроки закончились</strong>
+                <p id="limit-copy">Выберите тариф, чтобы продолжить без дневного ограничения.</p>
+            </div>
+        </div>
+
+        <section class="plan-grid" aria-label="Тарифы УмБазы">
+            <article class="plan-card glass" data-plan-card="student">
+                <div class="plan-kicker">Ученик</div>
+                <div class="plan-price"><strong>799 ₽</strong><span>/ год</span></div>
+                <p class="plan-audience">Для самостоятельных занятий школьников и студентов</p>
+                <ul class="plan-features">
+                    <li>Неограниченная генерация уроков по всем предметам</li>
+                    <li>Интерактивные тесты с разбором ошибок</li>
+                    <li>История занятий и прогресс в личном кабинете</li>
+                    <li>Доска почёта и еженедельные розыгрыши</li>
+                    <li>Доступ 24/7 с любого устройства</li>
+                </ul>
+                <button type="button" class="plan-link plan-link--button" onclick="choosePlan('student', this)">Оплатить 799 ₽</button>
+            </article>
+
+            <article class="plan-card glass plan-featured" data-plan-card="family">
+                <div class="plan-ribbon">Для семьи</div>
+                <div class="plan-kicker">Семейный</div>
+                <div class="plan-price"><strong>1 299 ₽</strong><span>/ год</span></div>
+                <p class="plan-audience">Доступ ученика и отдельный кабинет с отчётами для родителя</p>
+                <ul class="plan-features">
+                    <li>Всё, что входит в тариф «Ученик»</li>
+                    <li>Отдельный доступ для родителя</li>
+                    <li>Еженедельные отчёты об успеваемости</li>
+                    <li>Статистика по темам и пробелам в знаниях</li>
+                    <li>Контроль прогресса ребёнка</li>
+                </ul>
+                <button type="button" class="plan-link plan-link--button" onclick="choosePlan('family', this)">Оплатить 1 299 ₽</button>
+            </article>
+
+            <article class="plan-card glass" data-plan-card="teacher">
+                <div class="plan-kicker">Преподаватель</div>
+                <div class="plan-price"><strong>1 799 ₽</strong><span>/ год</span></div>
+                <p class="plan-audience">Для учителей, репетиторов и педагогов</p>
+                <ul class="plan-features">
+                    <li>Всё, что входит в тариф «Ученик»</li>
+                    <li>Готовые уроки с иллюстрациями и тестами</li>
+                    <li>Мониторинг прогресса учеников</li>
+                    <li>Инструменты индивидуализации обучения</li>
+                    <li>Доступ к методическим материалам</li>
+                </ul>
+                <button type="button" class="plan-link plan-link--button" onclick="choosePlan('teacher', this)">Оплатить 1 799 ₽</button>
+            </article>
+        </section>
+
+        <p id="payment-status" class="payment-state" aria-live="polite"></p>
+        <div class="payment-trust" aria-label="Защищённая онлайн-оплата">
+            <p class="plan-launch-note">Оплата проходит на защищённой странице. Для получения чека используется email вашего кабинета.</p>
+        </div>
+    </main>
+
+    <script src="js/site-config.js?v=20260804b"></script>
+    <script src="js/api.js?v=20260814a"></script>
+    <script src="js/auth.js?v=20260804b"></script>
+    <script>
+        const planLabels = { student: 'Ученик', family: 'Семейный', teacher: 'Преподаватель' };
+
+        function updatePlansAccount() {
+            const button = document.getElementById('nav-account');
+            if (!button) return;
+            button.textContent = isLoggedIn() ? 'Личный кабинет' : 'Войти';
+            button.href = isLoggedIn() ? 'account.html' : `auth.html?redirect=${encodeURIComponent('plans.html')}`;
+        }
+
+        async function choosePlan(plan, button) {
+            if (!isLoggedIn()) {
+                const redirect = encodeURIComponent(`plans.html?plan=${plan}`);
+                window.location.href = `auth.html?mode=login&reason=payment&redirect=${redirect}`;
+                return;
+            }
+            const status = document.getElementById('payment-status');
+            const original = button.textContent;
+            button.disabled = true;
+            button.textContent = 'Открываем оплату…';
+            status.textContent = `Создаём оплату тарифа «${planLabels[plan]}» для вашего кабинета.`;
+            try {
+                const checkout = await api.createCheckout(plan);
+                window.location.href = checkout.checkout_url;
+            } catch (error) {
+                button.disabled = false;
+                button.textContent = original;
+                status.textContent = error.message || 'Не удалось открыть оплату. Попробуйте ещё раз.';
+                status.classList.add('payment-state--error');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadSiteConfig();
+            updatePlansAccount();
+            applyAuthVisibility();
+            const params = new URLSearchParams(window.location.search);
+            const reason = params.get('reason');
+            if (reason === 'daily-limit' || reason === 'teacher-plan') {
+                const notice = document.getElementById('limit-notice');
+                notice.classList.remove('hidden');
+                if (reason === 'teacher-plan') {
+                    document.getElementById('limit-title').textContent = 'Для преподавателя нужен активный тариф';
+                    document.getElementById('limit-copy').textContent = 'Выберите тариф «Преподаватель», чтобы создавать учебные материалы.';
+                    document.querySelector('[data-plan-card="teacher"]')?.classList.add('plan-card--suggested');
+                }
+            }
+            const selected = params.get('plan');
+            document.querySelector(`[data-plan-card="${selected}"]`)?.classList.add('plan-card--suggested');
+        });
+    </script>
+</body>
+</html>

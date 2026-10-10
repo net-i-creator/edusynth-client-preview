@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок — УмБаза</title>
+    <link rel="icon" type="image/png" href="assets/brand/umbaza-mark-v2.png">
+
+    <script src="js/tailwindcss-play-3.4.17.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: { cyan: '#0099ff', blue: '#2563eb', violet: '#7c3aed' },
+                    },
+                    fontFamily: { sans: ['Manrope', 'Inter', 'system-ui', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>gsap.registerPlugin(ScrollTrigger);</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- DOMPurify 3.4.12: https://github.com/cure53/DOMPurify/blob/3.4.12/dist/purify.min.js; local SHA-256 7955c70f7f39852dc6c6faa36181b11d891f894aa9cad889580b101a2b765f64 -->
+    <script src="js/dompurify-3.4.12.min.js" integrity="sha384-RYmg4N71ubStgptcZBoINl1iOfiPsTsPjQuLcqy+JrhoFMH2qc4GhShXYNGPrnKU" defer></script>
+    <script src="js/lesson-sanitizer.js?v=20260829a" defer></script>
+
+    <link rel="stylesheet" href="css/styles.css?v=20260815b">
+    <script src="js/yandex-metrika.js"></script>
+    <script src="js/unified-nav.js?v=20260815a" defer></script>
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3782581", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782581;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</head>
+<body class="font-sans antialiased min-h-screen">
+    <noscript><div><img src="https://mc.yandex.ru/watch/110566914" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="sphere sphere-cyan w-80 h-80 -top-20 -left-20" id="sphere-1"></div>
+        <div class="sphere sphere-blue w-64 h-64 top-1/3 -right-24" id="sphere-2"></div>
+        <div class="glass-orb glass-orb-md top-20 -right-4" id="orb-1"></div>
+        <div class="glass-orb glass-orb-sm bottom-24 -left-2" id="orb-2"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="sticky top-0 z-40 border-b border-theme glass">
+        <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="brand-logo-compact">
+                        <img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--compact">
+                    </div>
+                    <span class="font-bold text-theme-primary">УмБаза</span>
+                </a>
+                <a href="faq.html" class="nav-link text-sm hidden sm:inline">FAQ</a>
+            </div>
+            <a href="index.html" class="text-sm text-theme-muted hover:text-accent-blue transition-colors">← На главную</a>
+        </div>
+    </nav>
+
+    <main class="relative z-10 max-w-3xl mx-auto px-6 py-12">
+        <!-- Loading -->
+        <div id="lesson-loading" class="text-center py-20">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-sm text-theme-muted">Загружаем урок...</p>
+        </div>
+
+        <!-- Lesson Content -->
+        <div id="lesson-content" class="hidden">
+            <div class="lesson-header mb-8">
+                <div class="flex items-center gap-2 text-sm text-theme-muted mb-3">
+                    <span id="lesson-subject"></span>
+                    <span>·</span>
+                    <span id="lesson-grade"></span>
+                </div>
+                <h1 id="lesson-title" class="text-3xl md:text-4xl font-bold mb-2 text-theme-primary"></h1>
+                <div class="flex items-center gap-4 text-sm text-theme-muted">
+                    <span id="lesson-date"></span>
+                    <span>·</span>
+                    <span id="lesson-views"></span>
+                </div>
+            </div>
+
+            <div id="lesson-intro" class="lesson-intro lesson-content mb-8 glass rounded-xl p-5"></div>
+            <div id="lesson-main" class="lesson-main lesson-content mb-8"></div>
+
+            <div id="lesson-images-wrap" class="lesson-gallery-wrap hidden mb-8">
+                <h2 class="text-lg font-semibold mb-4 text-theme-primary">Иллюстрации</h2>
+                <div id="lesson-images" class="lesson-gallery"></div>
+                <p class="image-attribution mt-3">
+                    Наглядные иллюстрации из открытых источников
+                </p>
+            </div>
+
+            <div id="lesson-examples" class="lesson-examples mb-8">
+                <h2 class="text-lg font-semibold mb-4 text-theme-primary">Примеры</h2>
+                <div id="examples-list" class="space-y-4"></div>
+            </div>
+
+            <div id="lesson-keypoints" class="lesson-keypoints mb-8">
+                <h2 class="text-lg font-semibold mb-4 text-theme-primary">Ключевые моменты</h2>
+                <div id="keypoints-list" class="space-y-2"></div>
+            </div>
+
+            <div id="lesson-quiz" class="lesson-quiz mb-8">
+                <h2 class="text-lg font-semibold mb-6 text-theme-primary">Проверьте себя</h2>
+                <div id="quiz-questions" class="space-y-6"></div>
+                <button onclick="submitQuiz()" id="quiz-submit"
+                    class="btn-primary px-8 py-3 text-sm font-semibold mt-6">
+                    Проверить ответы
+                </button>
+
+                <div id="quiz-result" class="hidden mt-8 glass-strong rounded-2xl p-6">
+                    <div class="text-center">
+                        <div id="score-value" class="text-4xl font-bold text-accent-cyan"></div>
+                        <div id="quiz-result-text" class="text-sm text-theme-muted mt-1"></div>
+                        <div id="quiz-points" class="text-sm font-semibold text-amber-600 mt-2 hidden"></div>
+                        <a href="leaderboard.html" id="quiz-leaderboard-link" class="hidden inline-block text-xs text-accent-blue hover:underline mt-2">Доска почёта →</a>
+                    </div>
+                    <div id="quiz-details" class="mt-6 space-y-3"></div>
+                </div>
+            </div>
+
+            <div class="text-xs text-theme-muted text-center py-6 border-t border-theme">
+                Урок создан с помощью нейросети. Содержание может содержать неточности — проверяйте важные факты.
+            </div>
+        </div>
+
+        <!-- Error -->
+        <div id="lesson-error" class="hidden text-center py-20">
+            <h2 class="text-xl font-semibold mb-2">Урок не найден</h2>
+            <p class="text-theme-secondary mb-6">Возможно, ссылка устарела или урок был удалён.</p>
+            <a href="index.html" class="btn-primary inline-block px-6 py-2.5 text-sm">На главную</a>
+        </div>
+    </main>
+
+    <div id="guest-signup-modal" class="payment-modal" onclick="closeGuestSignup(event)">
+        <div class="payment-modal-card" onclick="event.stopPropagation()">
+            <div class="plan-kicker">Первый урок готов</div>
+            <h3 class="text-xl font-semibold text-theme-primary mb-2">Продолжим обучение?</h3>
+            <p class="text-sm text-theme-secondary mb-5">Создайте бесплатный кабинет и получайте до трёх персональных уроков в сутки с сохранением прогресса.</p>
+            <a href="auth.html?mode=register&reason=limit&redirect=/" class="btn-primary block w-full py-3 text-sm text-center" data-auth-only>Создать кабинет</a>
+            <button onclick="closeGuestSignup()" class="w-full mt-3 text-sm text-theme-muted">Остаться на уроке</button>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script src="js/api.js?v=20260814a"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/guest-limit.js?v=20260814a"></script>
+    <script src="js/animations.js"></script>
+    <script>
+        let currentLesson = null;
+        let selectedAnswers = [];
+
+        function closeGuestSignup(e) {
+            if (e && e.target !== e.currentTarget) return;
+            document.getElementById('guest-signup-modal').classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadSiteConfig();
+            applyAuthVisibility();
+            loadLesson();
+            if (!isLoggedIn() && isAuthEnabled() && sessionStorage.getItem('show_guest_signup') === '1') {
+                sessionStorage.removeItem('show_guest_signup');
+                setTimeout(() => document.getElementById('guest-signup-modal').classList.add('active'), 900);
+            }
+        });
+
+        async function loadLesson() {
+            const params = new URLSearchParams(window.location.search);
+            const lessonId = params.get('id');
+
+            if (!lessonId) {
+                showError();
+                return;
+            }
+
+            const cached = localStorage.getItem('current_lesson');
+            if (cached) {
+                const lesson = JSON.parse(cached);
+                if (lesson.id === lessonId) {
+                    renderLesson(lesson);
+                    return;
+                }
+            }
+
+            try {
+                const lesson = await api.getLesson(lessonId);
+                renderLesson(lesson);
+            } catch (error) {
+                showError();
+            }
+        }
+
+        function showError() {
+            document.getElementById('lesson-loading').classList.add('hidden');
+            document.getElementById('lesson-error').classList.remove('hidden');
+        }
+
+        function renderLesson(lesson) {
+            currentLesson = lesson;
+            selectedAnswers = new Array(lesson.content.quiz?.length || 0).fill(-1);
+
+            document.getElementById('lesson-loading').classList.add('hidden');
+            document.getElementById('lesson-content').classList.remove('hidden');
+
+            document.getElementById('lesson-title').textContent = lesson.content.title;
+            document.getElementById('lesson-subject').textContent = lesson.subject;
+
+            const levelLabels = { school: 'Школа', university: 'ВУЗ', extra: 'Доп. образование' };
+            const level = levelLabels[lesson.education_level] || 'Школа';
+            const gradeText = lesson.grade_label || `${lesson.grade} класс`;
+            document.getElementById('lesson-grade').textContent = `${level} · ${gradeText}`;
+            document.getElementById('lesson-date').textContent = new Date(lesson.created_at).toLocaleDateString('ru-RU');
+            document.getElementById('lesson-views').textContent = `${lesson.views_count} просмотров`;
+
+            const intro = document.getElementById('lesson-intro');
+            const introParagraph = document.createElement('p');
+            introParagraph.innerHTML = lessonSanitizer.sanitizeHtml(lesson.content.introduction);
+            intro.replaceChildren(introParagraph);
+            document.getElementById('lesson-main').innerHTML =
+                lessonSanitizer.sanitizeHtml(lesson.content.main_content);
+
+            const wrap = document.getElementById('lesson-images-wrap');
+            const gallery = document.getElementById('lesson-images');
+            const safeImageUrls = (lesson.image_urls || [])
+                .map((url) => lessonSanitizer.safeImageUrl(url))
+                .filter(Boolean);
+            gallery.replaceChildren();
+            wrap.classList.toggle('hidden', safeImageUrls.length === 0);
+            if (safeImageUrls.length > 0) {
+                wrap.classList.remove('hidden');
+                safeImageUrls.forEach((url, index) => {
+                    const image = document.createElement('img');
+                    image.src = url;
+                    image.alt = `Иллюстрация ${index + 1}`;
+                    image.className = 'lesson-illustration';
+                    image.dataset.idx = String(index);
+                    image.addEventListener('click', () => openLightbox(url));
+                    const removeUnavailableImage = () => {
+                        image.remove();
+                        if (!gallery.querySelector('.lesson-illustration')) {
+                            wrap.classList.add('hidden');
+                        }
+                    };
+                    const imageTimeout = setTimeout(() => {
+                        if (!image.complete || image.naturalWidth === 0) {
+                            removeUnavailableImage();
+                        }
+                    }, 20000);
+                    image.addEventListener('load', () => clearTimeout(imageTimeout), { once: true });
+                    image.addEventListener('error', () => {
+                        clearTimeout(imageTimeout);
+                        removeUnavailableImage();
+                    }, { once: true });
+                    gallery.appendChild(image);
+                });
+            }
+
+            const examplesList = document.getElementById('examples-list');
+            const examplesFragment = document.createDocumentFragment();
+            lesson.content.examples.forEach((ex, i) => {
+                const card = document.createElement('div');
+                card.className = 'glass rounded-xl p-4';
+                const label = document.createElement('div');
+                label.className = 'text-sm font-medium text-theme-muted mb-2';
+                label.textContent = `Пример ${i + 1}`;
+                const content = document.createElement('div');
+                content.className = 'lesson-content';
+                content.innerHTML = lessonSanitizer.sanitizeHtml(ex);
+                card.append(label, content);
+                examplesFragment.appendChild(card);
+            });
+            examplesList.replaceChildren(examplesFragment);
+
+            const keypointsList = document.getElementById('keypoints-list');
+            const keypointsFragment = document.createDocumentFragment();
+            lesson.content.key_points.forEach(point => {
+                const row = document.createElement('div');
+                row.className = 'flex items-start gap-3 p-3 glass rounded-xl';
+                const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                icon.setAttribute('class', 'w-5 h-5 text-accent-cyan mt-0.5 flex-shrink-0');
+                icon.setAttribute('fill', 'currentColor');
+                icon.setAttribute('viewBox', '0 0 20 20');
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('fill-rule', 'evenodd');
+                path.setAttribute('d', 'M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z');
+                path.setAttribute('clip-rule', 'evenodd');
+                icon.appendChild(path);
+                const text = document.createElement('span');
+                text.className = 'text-sm text-theme-secondary';
+                text.innerHTML = lessonSanitizer.sanitizeHtml(point);
+                row.append(icon, text);
+                keypointsFragment.appendChild(row);
+            });
+            keypointsList.replaceChildren(keypointsFragment);
+
+            const quizContainer = document.getElementById('quiz-questions');
+            const quizFragment = document.createDocumentFragment();
+            lesson.content.quiz.forEach((q, qi) => {
+                const question = document.createElement('div');
+                question.className = 'quiz-question';
+                const questionTitle = document.createElement('div');
+                questionTitle.className = 'font-medium mb-3 text-theme-primary';
+                questionTitle.appendChild(document.createTextNode(`${qi + 1}. `));
+                const questionText = document.createElement('span');
+                questionText.innerHTML = lessonSanitizer.sanitizeHtml(q.question);
+                questionTitle.appendChild(questionText);
+
+                const options = document.createElement('div');
+                options.className = 'space-y-2';
+                q.options.forEach((opt, oi) => {
+                    const option = document.createElement('div');
+                    option.className = 'quiz-option';
+                    option.id = `q${qi}o${oi}`;
+                    option.addEventListener('click', () => selectAnswer(qi, oi));
+                    const optionRow = document.createElement('div');
+                    optionRow.className = 'flex items-center gap-3';
+                    const circle = document.createElement('div');
+                    circle.className = 'w-6 h-6 rounded-full border-2 border-slate-200 flex items-center justify-center flex-shrink-0 option-circle text-theme-secondary';
+                    const letter = document.createElement('span');
+                    letter.className = 'text-xs font-medium';
+                    letter.textContent = String.fromCharCode(65 + oi);
+                    circle.appendChild(letter);
+                    const optionText = document.createElement('span');
+                    optionText.className = 'text-sm text-theme-secondary';
+                    optionText.innerHTML = lessonSanitizer.sanitizeHtml(opt);
+                    optionRow.append(circle, optionText);
+                    option.appendChild(optionRow);
+                    options.appendChild(option);
+                });
+
+                question.append(questionTitle, options);
+                quizFragment.appendChild(question);
+            });
+            quizContainer.replaceChildren(quizFragment);
+
+            renderMathInElement(document.getElementById('lesson-content'), {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                ],
+                throwOnError: false,
+            });
+
+            renderMathInElement(document.getElementById('quiz-questions'), {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                ],
+                throwOnError: false,
+            });
+
+            animateLessonContent();
+        }
+
+        function selectAnswer(questionIdx, optionIdx) {
+            selectedAnswers[questionIdx] = optionIdx;
+
+            const question = currentLesson.content.quiz[questionIdx];
+            question.options.forEach((_, oi) => {
+                const el = document.getElementById(`q${questionIdx}o${oi}`);
+                el.classList.remove('selected');
+                const circle = el.querySelector('.option-circle');
+                circle.classList.remove('border-accent-cyan', 'bg-accent-cyan', 'text-white');
+                circle.classList.add('border-slate-200');
+            });
+
+            const selected = document.getElementById(`q${questionIdx}o${optionIdx}`);
+            selected.classList.add('selected');
+            const circle = selected.querySelector('.option-circle');
+            circle.classList.remove('border-slate-200');
+            circle.classList.add('border-accent-cyan', 'bg-accent-cyan', 'text-white');
+        }
+
+        async function submitQuiz() {
+            if (selectedAnswers.includes(-1)) {
+                alert('Пожалуйста, ответьте на все вопросы');
+                return;
+            }
+
+            const btn = document.getElementById('quiz-submit');
+            btn.disabled = true;
+            btn.textContent = 'Проверяем...';
+
+            try {
+                let result;
+                try {
+                    result = await api.checkQuiz(currentLesson.id, selectedAnswers);
+                } catch (e) {
+                    result = checkQuizLocally();
+                }
+                showQuizResult(result);
+            } catch (error) {
+                alert('Ошибка проверки: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Проверить ответы';
+            }
+        }
+
+        function checkQuizLocally() {
+            const quiz = currentLesson.content.quiz;
+            let correct = 0;
+            const results = quiz.map((q, i) => {
+                const isCorrect = selectedAnswers[i] === q.correct_index;
+                if (isCorrect) correct++;
+                return {
+                    question: q.question,
+                    selected: selectedAnswers[i],
+                    correct: q.correct_index,
+                    is_correct: isCorrect,
+                    explanation: q.explanation || '',
+                };
+            });
+
+            return {
+                total: quiz.length,
+                correct,
+                score_percent: Math.round((correct / quiz.length) * 100),
+                results,
+            };
+        }
+
+        function showQuizResult(result) {
+            const resultEl = document.getElementById('quiz-result');
+            resultEl.classList.remove('hidden');
+
+            const total = result.total || currentLesson.content.quiz.length;
+            const correct = result.correct || 0;
+            const score = typeof result.score_percent === 'number' && !isNaN(result.score_percent)
+                ? result.score_percent
+                : Math.round((correct / total) * 100);
+
+            document.getElementById('score-value').textContent = score + '%';
+            document.getElementById('quiz-result-text').textContent =
+                `${correct} из ${total} правильных ответов`;
+
+            const pointsEl = document.getElementById('quiz-points');
+            const boardLink = document.getElementById('quiz-leaderboard-link');
+            if (result.points_earned > 0) {
+                pointsEl.textContent = `+${result.points_earned} баллов · всего ${result.total_points ?? '—'}`;
+                pointsEl.classList.remove('hidden');
+                boardLink.classList.remove('hidden');
+            } else if (typeof result.total_points === 'number' && isLoggedIn()) {
+                pointsEl.textContent = `Баллы уже начислены ранее · всего ${result.total_points}`;
+                pointsEl.classList.remove('hidden');
+                boardLink.classList.remove('hidden');
+            } else {
+                pointsEl.classList.add('hidden');
+                boardLink.classList.add('hidden');
+            }
+
+            if (result.results) {
+                result.results.forEach((r, i) => {
+                    const selectedEl = document.getElementById(`q${i}o${r.selected}`);
+                    const correctEl = document.getElementById(`q${i}o${r.correct}`);
+
+                    if (selectedEl && r.is_correct) {
+                        selectedEl.classList.add('correct');
+                    } else if (selectedEl && correctEl) {
+                        selectedEl.classList.add('incorrect');
+                        correctEl.classList.add('correct');
+                    }
+                });
+
+                const detailsEl = document.getElementById('quiz-details');
+                const detailsFragment = document.createDocumentFragment();
+                result.results.forEach((r, i) => {
+                    const detail = document.createElement('div');
+                    detail.className = `p-3 rounded-xl glass ${r.is_correct ? 'border border-green-500/20' : 'border border-red-500/20'}`;
+                    const status = document.createElement('div');
+                    status.className = `flex items-center gap-2 text-sm font-medium ${r.is_correct ? 'text-green-600' : 'text-red-500'}`;
+                    status.textContent = `${r.is_correct ? '✓' : '✗'} Вопрос ${i + 1}`;
+                    detail.appendChild(status);
+                    if (r.explanation) {
+                        const explanation = document.createElement('p');
+                        explanation.className = 'text-xs text-theme-muted mt-1';
+                        explanation.innerHTML = lessonSanitizer.sanitizeHtml(r.explanation);
+                        detail.appendChild(explanation);
+                    }
+                    detailsFragment.appendChild(detail);
+                });
+                detailsEl.replaceChildren(detailsFragment);
+
+                renderMathInElement(document.getElementById('quiz-result'), {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false },
+                    ],
+                    throwOnError: false,
+                });
+            }
+
+            animateQuizResult(score);
+            resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function openLightbox(url) {
+            const safeUrl = lessonSanitizer.safeImageUrl(url);
+            if (!safeUrl) return;
+            document.getElementById('lightbox-img').src = safeUrl;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

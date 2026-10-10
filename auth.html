@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — УмБаза</title>
+    <link rel="icon" type="image/png" href="assets/brand/umbaza-mark-v2.png">
+    <script src="js/tailwindcss-play-3.4.17.js"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { accent: { cyan: '#0099ff', blue: '#2563eb', violet: '#7c3aed' } } } }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=20260815b">
+    <script src="js/yandex-metrika.js"></script>
+    <script src="js/unified-nav.js?v=20260815a" defer></script>
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3782581", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3782581;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+    <noscript><div><img src="https://mc.yandex.ru/watch/110566914" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <nav class="relative z-10 border-b border-theme">
+        <div class="max-w-md mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="brand-logo-compact">
+                    <img src="assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--compact">
+                </div>
+                <span class="font-bold text-theme-primary">УмБаза</span>
+            </a>
+            <a href="index.html" class="text-sm text-theme-muted hover:text-accent-blue">← На главную</a>
+        </div>
+    </nav>
+
+    <main class="flex-1 flex items-center justify-center px-6 py-12">
+        <div class="w-full max-w-md">
+            <div id="auth-disabled-notice" class="hidden mb-6 p-4 rounded-xl glass border border-slate-200 text-sm text-theme-secondary text-center">
+                Регистрация и вход временно недоступны. Попробуйте позже или напишите нам в поддержку.
+            </div>
+
+            <div id="limit-notice" class="hidden mb-6 p-4 rounded-xl glass border border-amber-200 bg-amber-50/50 text-sm text-amber-800">
+                Вы использовали бесплатный урок. Войдите или зарегистрируйтесь, чтобы продолжить.
+            </div>
+
+            <div class="glass-strong rounded-2xl p-6 md:p-8" id="auth-card">
+                <h1 class="text-2xl font-bold text-theme-primary mb-1" id="auth-title">Вход</h1>
+                <p class="text-sm text-theme-muted mb-6">Личный кабинет УмБаза</p>
+
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Email</label>
+                        <input type="email" id="login-email" required class="input-glass w-full px-4 py-3 text-sm" placeholder="you@example.com">
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="block text-sm font-medium text-theme-secondary">Пароль</label>
+                            <button type="button" id="show-forgot" class="text-xs text-accent-blue hover:underline">Забыли пароль?</button>
+                        </div>
+                        <input type="password" id="login-password" required class="input-glass w-full px-4 py-3 text-sm" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn-primary w-full py-3 text-sm font-semibold">Войти</button>
+                </form>
+
+                <form id="forgot-form" class="space-y-4 hidden">
+                    <p class="text-sm text-theme-secondary">Введите email — пришлём ссылку для сброса пароля.</p>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Email</label>
+                        <input type="email" id="forgot-email" required class="input-glass w-full px-4 py-3 text-sm" placeholder="you@example.com">
+                    </div>
+                    <button type="submit" class="btn-primary w-full py-3 text-sm font-semibold">Отправить ссылку</button>
+                </form>
+
+                <form id="reset-form" class="space-y-4 hidden">
+                    <p class="text-sm text-theme-secondary">Придумайте новый пароль для входа.</p>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Новый пароль</label>
+                        <input type="password" id="reset-password" required minlength="6" class="input-glass w-full px-4 py-3 text-sm" placeholder="Минимум 6 символов">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Повторите пароль</label>
+                        <input type="password" id="reset-password2" required minlength="6" class="input-glass w-full px-4 py-3 text-sm" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn-primary w-full py-3 text-sm font-semibold">Сохранить пароль</button>
+                </form>
+
+                <form id="register-form" class="space-y-4 hidden">
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Кто вы?</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <label class="role-option">
+                                <input type="radio" name="role" value="student" checked class="sr-only">
+                                <span class="block text-center py-2.5 px-2 rounded-lg border border-slate-200 text-xs font-medium cursor-pointer role-option-label">Ученик</span>
+                            </label>
+                            <label class="role-option">
+                                <input type="radio" name="role" value="parent" class="sr-only">
+                                <span class="block text-center py-2.5 px-2 rounded-lg border border-slate-200 text-xs font-medium cursor-pointer role-option-label">Родитель</span>
+                            </label>
+                            <label class="role-option">
+                                <input type="radio" name="role" value="teacher" class="sr-only">
+                                <span class="block text-center py-2.5 px-2 rounded-lg border border-slate-200 text-xs font-medium cursor-pointer role-option-label">Преподаватель</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Имя</label>
+                        <input type="text" id="reg-name" class="input-glass w-full px-4 py-3 text-sm" placeholder="Иван Иванов">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Ник на Доске почёта <span class="text-theme-muted font-normal">(необязательно)</span></label>
+                        <input type="text" id="reg-nickname" maxlength="24" class="input-glass w-full px-4 py-3 text-sm" placeholder="Например: umbaza_star" autocomplete="username">
+                        <p class="text-xs text-theme-muted mt-1">3–24 символа: буквы, цифры или _. Будет виден в топ-100.</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Телефон</label>
+                        <input type="tel" id="reg-phone" required class="input-glass w-full px-4 py-3 text-sm" placeholder="+7 (999) 123-45-67" autocomplete="tel">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Промокод <span class="text-theme-muted font-normal">(необязательно)</span></label>
+                        <input type="text" id="reg-promo-code" maxlength="64" class="input-glass w-full px-4 py-3 text-sm" placeholder="Введите промокод" autocomplete="off">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Email</label>
+                        <input type="email" id="reg-email" required class="input-glass w-full px-4 py-3 text-sm" placeholder="you@example.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-theme-secondary mb-1.5">Пароль</label>
+                        <input type="password" id="reg-password" required minlength="6" class="input-glass w-full px-4 py-3 text-sm" placeholder="Минимум 6 символов">
+                    </div>
+                    <label class="flex items-start gap-2.5 cursor-pointer select-none">
+                        <input type="checkbox" id="reg-consent" required class="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-accent-blue focus:ring-accent-blue cursor-pointer">
+                        <span class="text-xs leading-relaxed text-theme-muted">
+                            Я ознакомлен(-а) и принимаю условия
+                            <a href="oferta.html" target="_blank" rel="noopener" class="text-accent-blue hover:underline">Публичной оферты</a>
+                            и
+                            <a href="confidentiality.html" target="_blank" rel="noopener" class="text-accent-blue hover:underline">Политики конфиденциальности и обработки персональных данных</a>.
+                        </span>
+                    </label>
+                    <button type="submit" class="btn-primary w-full py-3 text-sm font-semibold">Зарегистрироваться</button>
+                </form>
+
+                <p class="text-center text-sm text-theme-muted mt-6">
+                    <button type="button" id="toggle-auth" class="text-accent-blue hover:underline">Нет аккаунта? Регистрация</button>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/api.js?v=20260831a"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/roulette.js?v=20260814a"></script>
+
+    <div id="reg-gift-modal" class="prize-roulette-modal hidden" role="dialog" aria-modal="true" aria-labelledby="reg-gift-title">
+        <div class="prize-roulette-modal__card">
+            <h2 id="reg-gift-title" class="text-xl font-bold text-theme-primary mb-1">Подарок за регистрацию!</h2>
+            <p class="text-sm text-theme-muted mb-4">Крутите рулетку — выпадет скидка или даже годовой тариф</p>
+            <div id="reg-gift-roulette"></div>
+            <div class="prize-roulette-modal__result">
+                <p id="reg-gift-result" class="text-base font-semibold text-theme-primary"></p>
+            </div>
+            <button type="button" id="reg-gift-spin" class="btn-primary w-full mt-4 py-3 text-sm font-semibold">Крутить!</button>
+            <button type="button" id="reg-gift-continue" class="hidden mt-3 text-sm text-accent-blue hover:underline">Продолжить</button>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const isRegister = params.get('mode') === 'register';
+        const isForgot = params.get('mode') === 'forgot';
+        const isReset = params.get('mode') === 'reset';
+        const resetToken = params.get('token') || '';
+        const isLimit = params.get('reason') === 'limit';
+        const redirect = params.get('redirect') || '/';
+        const requestedRole = params.get('role');
+
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const forgotForm = document.getElementById('forgot-form');
+        const resetForm = document.getElementById('reset-form');
+        const toggleAuth = document.getElementById('toggle-auth');
+        const authTitle = document.getElementById('auth-title');
+        let pendingRedirect = redirect;
+
+        function hideAllForms() {
+            loginForm.classList.add('hidden');
+            registerForm.classList.add('hidden');
+            forgotForm.classList.add('hidden');
+            resetForm.classList.add('hidden');
+        }
+
+        loadSiteConfig().then(() => {
+            if (!isAuthEnabled()) {
+                document.getElementById('auth-disabled-notice').classList.remove('hidden');
+                document.getElementById('auth-card').classList.add('hidden');
+                return;
+            }
+
+            if (isLimit) document.getElementById('limit-notice').classList.remove('hidden');
+            if (isReset && resetToken) showReset();
+            else if (isForgot) showForgot();
+            else if (isRegister) {
+                showRegister();
+                if (requestedRole && ['student', 'parent', 'teacher'].includes(requestedRole)) {
+                    const roleInput = document.querySelector(`input[name="role"][value="${requestedRole}"]`);
+                    if (roleInput) { roleInput.checked = true; roleInput.dispatchEvent(new Event('change')); }
+                }
+            }
+        });
+
+        let registerMode = isRegister;
+
+        document.getElementById('toggle-auth').addEventListener('click', () => {
+            if (!forgotForm.classList.contains('hidden') || !resetForm.classList.contains('hidden')) {
+                showLogin();
+                registerMode = false;
+                return;
+            }
+            registerMode = !registerMode;
+            registerMode ? showRegister() : showLogin();
+        });
+
+        document.getElementById('show-forgot').addEventListener('click', () => showForgot());
+
+        function showRegister() {
+            hideAllForms();
+            authTitle.textContent = 'Регистрация';
+            registerForm.classList.remove('hidden');
+            toggleAuth.textContent = 'Уже есть аккаунт? Войти';
+            toggleAuth.classList.remove('hidden');
+        }
+
+        function showLogin() {
+            hideAllForms();
+            authTitle.textContent = 'Вход';
+            loginForm.classList.remove('hidden');
+            toggleAuth.textContent = 'Нет аккаунта? Регистрация';
+            toggleAuth.classList.remove('hidden');
+        }
+
+        function showForgot() {
+            hideAllForms();
+            authTitle.textContent = 'Восстановление пароля';
+            forgotForm.classList.remove('hidden');
+            toggleAuth.textContent = 'Вернуться ко входу';
+            toggleAuth.classList.remove('hidden');
+        }
+
+        function showReset() {
+            hideAllForms();
+            authTitle.textContent = 'Новый пароль';
+            resetForm.classList.remove('hidden');
+            toggleAuth.textContent = 'Вернуться ко входу';
+            toggleAuth.classList.remove('hidden');
+        }
+
+        async function openRegistrationGift(redirectTo) {
+            pendingRedirect = redirectTo;
+            const modal = document.getElementById('reg-gift-modal');
+            const spinBtn = document.getElementById('reg-gift-spin');
+            const continueBtn = document.getElementById('reg-gift-continue');
+            const resultEl = document.getElementById('reg-gift-result');
+            resultEl.textContent = '';
+            spinBtn.classList.remove('hidden');
+            spinBtn.disabled = false;
+            continueBtn.classList.add('hidden');
+            modal.classList.remove('hidden');
+
+            let pool;
+            try {
+                pool = await api.getRoulettePool('registration');
+            } catch (e) {
+                modal.classList.add('hidden');
+                window.location.href = redirectTo;
+                return;
+            }
+
+            const roulette = new PrizeRoulette(document.getElementById('reg-gift-roulette'), {
+                prizes: pool.prizes,
+            });
+
+            spinBtn.onclick = async () => {
+                spinBtn.disabled = true;
+                try {
+                    const result = await api.spinRoulette('registration');
+                    await roulette.spinTo(result.prize.id);
+                    resultEl.textContent = `Вы выиграли: ${result.prize.label}`;
+                    spinBtn.classList.add('hidden');
+                    continueBtn.classList.remove('hidden');
+                    const user = await api.getMe();
+                    setUser(user);
+                } catch (err) {
+                    resultEl.textContent = err.message || 'Не удалось крутить';
+                    spinBtn.disabled = false;
+                }
+            };
+
+            continueBtn.onclick = () => {
+                window.location.href = pendingRedirect;
+            };
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const data = await api.login(
+                    document.getElementById('login-email').value,
+                    document.getElementById('login-password').value
+                );
+                api.setTokens(data.access_token, data.refresh_token);
+                const user = await api.getMe();
+                setUser(user);
+                window.location.href = redirect;
+            } catch (err) {
+                alert(err.message || 'Ошибка входа');
+            }
+        });
+
+        document.getElementById('forgot-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const data = await api.forgotPassword(document.getElementById('forgot-email').value);
+                alert(data.detail || 'Если аккаунт существует, ссылка отправлена на email.');
+                showLogin();
+            } catch (err) {
+                alert(err.message || 'Не удалось отправить ссылку');
+            }
+        });
+
+        document.getElementById('reset-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('reset-password').value;
+            const password2 = document.getElementById('reset-password2').value;
+            if (password !== password2) {
+                alert('Пароли не совпадают');
+                return;
+            }
+            try {
+                const data = await api.resetPassword(resetToken, password);
+                alert(data.detail || 'Пароль обновлён');
+                window.location.href = 'auth.html';
+            } catch (err) {
+                alert(err.message || 'Не удалось обновить пароль');
+            }
+        });
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!document.getElementById('reg-consent').checked) {
+                alert('Чтобы зарегистрироваться, примите условия Публичной оферты и Политики конфиденциальности.');
+                return;
+            }
+            try {
+                const role = document.querySelector('input[name="role"]:checked')?.value || 'student';
+                const nickname = document.getElementById('reg-nickname').value.trim() || null;
+                const promoCode = document.getElementById('reg-promo-code').value.trim() || null;
+                const data = await api.register(
+                    document.getElementById('reg-email').value,
+                    document.getElementById('reg-password').value,
+                    document.getElementById('reg-name').value || null,
+                    role,
+                    document.getElementById('reg-phone').value,
+                    nickname,
+                    promoCode
+                );
+                api.setTokens(data.access_token, data.refresh_token);
+                const user = await api.getMe();
+                setUser(user);
+                await openRegistrationGift(redirect === '/' ? 'leaderboard.html' : redirect);
+            } catch (err) {
+                alert(err.message || 'Ошибка регистрации');
+            }
+        });
+
+        if (isLoggedIn() && !isReset) window.location.href = redirect === '/' ? 'account.html' : redirect;
+
+        document.querySelectorAll('.role-option input').forEach(input => {
+            input.addEventListener('change', () => {
+                document.querySelectorAll('.role-option-label').forEach(l => {
+                    l.classList.remove('border-accent-blue', 'bg-blue-50', 'text-accent-blue');
+                });
+                if (input.checked) {
+                    input.nextElementSibling.classList.add('border-accent-blue', 'bg-blue-50', 'text-accent-blue');
+                }
+            });
+        });
+        document.querySelector('.role-option input:checked')?.dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>

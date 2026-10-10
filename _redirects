@@ -1,0 +1,2 @@
+/api/*  https://xn--80aabzw5b.xn--p1ai/api/:splat  200
+/media/news/*  https://xn--80aabzw5b.xn--p1ai/media/news/:splat  200
