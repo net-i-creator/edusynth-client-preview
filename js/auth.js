@@ -41,7 +41,7 @@ function setUser(user) {
 
 function logout() {
     api.clearTokens();
-    window.location.href = '/';
+    window.location.href = window.location.hostname === 'net-i-creator.github.io' ? 'index.html' : '/';
 }
 
 function requireAuth() {

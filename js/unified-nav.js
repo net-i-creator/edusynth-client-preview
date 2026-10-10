@@ -2,9 +2,11 @@
 (function () {
     const isNewsArticle = window.location.pathname.includes('/news/');
     const isFilePage = window.location.protocol === 'file:';
+    const isGitHubPreview = window.location.hostname === 'net-i-creator.github.io';
     const prefix = isNewsArticle ? '../' : '';
-    const homeHref = isFilePage ? `${isNewsArticle ? '../' : ''}index.html` : '/';
-    const lessonHref = isFilePage
+    const useRelativeLinks = isFilePage || isGitHubPreview;
+    const homeHref = useRelativeLinks ? `${isNewsArticle ? '../' : ''}index.html` : '/';
+    const lessonHref = useRelativeLinks
         ? `${isNewsArticle ? '../' : ''}index.html#levels-section`
         : '/#levels-section';
 
@@ -16,7 +18,7 @@
         { href: `${prefix}faq.html`, label: 'FAQ', match: /\/faq\.html$/ },
         { href: `${prefix}news.html`, label: 'Новости и аналитика', match: /\/news(?:\/|\.html$)/ },
         { href: `${prefix}marketplace.html`, label: 'Найти репетитора', match: /\/marketplace\.html$/ },
-        { href: isFilePage ? `${homeHref}#reviews` : '/#reviews', label: 'Отзывы' },
+        { href: useRelativeLinks ? `${homeHref}#reviews` : '/#reviews', label: 'Отзывы' },
         { href: `${prefix}franchise.html`, label: 'Франшиза', match: /\/franchise\.html$/ },
     ];
 
@@ -33,7 +35,7 @@
         current.className = 'site-nav relative z-40 border-b border-theme glass';
         current.innerHTML = `
             <div class="site-nav__inner max-w-6xl mx-auto px-4 sm:px-6">
-                <a href="/" class="site-nav__brand" aria-label="УмБаза — главная">
+                <a href="${homeHref}" class="site-nav__brand" aria-label="УмБаза — главная">
                     <span class="site-nav__logo"><img src="${prefix}assets/brand/umbaza-mark-v2.png" alt="" class="brand-mark brand-mark--nav"></span>
                     <span class="site-nav__title">УмБаза</span>
                 </a>
