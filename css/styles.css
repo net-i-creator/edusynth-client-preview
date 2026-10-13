@@ -1617,11 +1617,11 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
     transition-timing-function: cubic-bezier(.42, 0, .58, 1);
 }
 
-.home-motion-ready .hub-paths .hub-card.home-load-reveal:nth-child(1) {
+.home-motion-ready .hub-paths .hub-card.home-load-reveal:not(.is-visible):nth-child(1) {
     transform: translateX(-12.5rem) scale(.8);
 }
 
-.home-motion-ready .hub-paths .hub-card.home-load-reveal:nth-child(3) {
+.home-motion-ready .hub-paths .hub-card.home-load-reveal:not(.is-visible):nth-child(3) {
     transform: translateX(12.5rem) scale(.8);
 }
 
@@ -1669,11 +1669,11 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
 }
 
 @media (max-width: 640px) {
-    .home-motion-ready .hub-paths .hub-card.home-load-reveal:nth-child(1) {
+    .home-motion-ready .hub-paths .hub-card.home-load-reveal:not(.is-visible):nth-child(1) {
         transform: translateX(-5rem) scale(.86);
     }
 
-    .home-motion-ready .hub-paths .hub-card.home-load-reveal:nth-child(3) {
+    .home-motion-ready .hub-paths .hub-card.home-load-reveal:not(.is-visible):nth-child(3) {
         transform: translateX(5rem) scale(.86);
     }
 }

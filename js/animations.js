@@ -14,7 +14,7 @@ let greetingTimeline = null;
 let selectedLevel = null;
 let levelBtnPulseTween = null;
 
-document.addEventListener('DOMContentLoaded', () => {
+function initPageAnimations() {
     // The homepage entrance must also work if the GSAP CDN is unavailable.
     initHomeMotion();
     if (!window.gsap) return;
@@ -24,7 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initOrbAnimations();
     initMagneticButtons();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPageAnimations, { once: true });
+} else {
+    initPageAnimations();
+}
 
 function initHomeMotion() {
     const hub = document.getElementById('ecosystem-hub');
@@ -61,34 +67,34 @@ function initHomeMotion() {
     scrollTargets.forEach(element => element.classList.add('home-scroll-reveal'));
     document.body.classList.add('home-motion-ready');
 
-    // Paint the initial positions before transitioning to the final layout.
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-        loadTargets.forEach((element, index) => {
-            element.style.setProperty('--home-motion-delay', `${index * 90}ms`);
-            element.classList.add('is-visible');
-        });
-    }));
+    // Prepare off-screen cards without animating the transition into their start pose.
+    const targets = [...loadTargets, ...scrollTargets];
+    targets.forEach(element => element.style.transition = 'none');
+    void hub.offsetWidth;
 
-    if (!('IntersectionObserver' in window)) {
-        scrollTargets.forEach(element => element.classList.add('is-visible'));
-        return;
-    }
-
-    const observer = new IntersectionObserver((entries, currentObserver) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-visible');
-            currentObserver.unobserve(entry.target);
-        });
-    }, {
-        rootMargin: '0px 0px -10% 0px',
-        threshold: 0.12,
-    });
-
-    scrollTargets.forEach((element, index) => {
-        element.style.setProperty('--home-motion-delay', `${Math.min(index * 70, 140)}ms`);
-        observer.observe(element);
-    });
+    const start = () => {
+        if (document.hidden) return;
+        document.removeEventListener('visibilitychange', start);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            targets.forEach(element => element.style.removeProperty('transition'));
+            if (!('IntersectionObserver' in window)) {
+                targets.forEach(element => element.classList.add('is-visible'));
+                return;
+            }
+            // A cold mobile visit starts above the cards: reveal them when seen,
+            // not while they are still below the fold.
+            const observer = new IntersectionObserver((entries, currentObserver) => {
+                entries.filter(entry => entry.isIntersecting).forEach((entry, index) => {
+                    entry.target.style.setProperty('--home-motion-delay', `${Math.min(index * 90, 270)}ms`);
+                    entry.target.classList.add('is-visible');
+                    currentObserver.unobserve(entry.target);
+                });
+            }, { threshold: 0.12 });
+            targets.forEach(element => observer.observe(element));
+        }));
+    };
+    if (document.hidden) document.addEventListener('visibilitychange', start);
+    else start();
 }
 
 function initHeroAnimations() {
