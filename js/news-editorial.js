@@ -21,7 +21,10 @@
         filters.forEach(button => button.addEventListener('click', () => { select(button.dataset.newsFilter); save(); }));
         document.addEventListener('click', event => { const a = event.target.closest('a'); if (a && /\/news\/|news-post\.html/.test(a.href)) save(); });
         function restore() {
-            const state = history.state?.newsContext;
+            const previous = document.referrer ? new URL(document.referrer) : null;
+            const saved = read();
+            const returning = previous?.origin === location.origin && (/\/news\//.test(previous.pathname) || previous.pathname.endsWith('/news-post.html'));
+            const state = history.state?.newsContext || (returning && saved?.url === location.href ? saved : null);
             select(state?.category || 'all');
             if (state) requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo({ top: state.y, behavior: 'instant' })));
         }
